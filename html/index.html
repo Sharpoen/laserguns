@@ -1,0 +1,56 @@
+<!DOCTYPE HTML>
+  <html>
+    <head>
+      <title> Playful Sandbox </title>
+      <meta name = "charset" charset = "utf-8">
+      <meta name = "viewport" content = "width=device-width">
+      <link rel = "stylesheet" type = "text/css" href = "style.css">
+      <script src = "pre.js"></script>
+      <script src = "inputs.js"></script>
+      <script src = "loadhud.js"></script>
+      <script src = "handlemultiplayer.js"></script>
+      <script src = "script.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.min.js" integrity="sha512-N4kV7GkNv7QR7RX9YF/olywyIgIwNvfEe2nZtfyj73HdjCUkAfOBDbcuJ/cTaN04JKRnw1YG1wnUyNKMsNgg3g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script> 
+      <script src = "game.js"></script>
+      <script src= "socket.io/socket.io.js"></script>
+    </head>
+  <body onload = "onload()" oncontextmenu="return false;">
+    <div id = "Roomconnect">
+      <div id = "AccessPort">
+        <label id = "NameLabel"> Username  </label>
+        <input id = "NameInput" type = "text">
+        <br>
+        <label id = "IDLabel"> Gameroom </label>
+        <input id = "IDInput" value = "Room1" type = "text">
+        <input id = "ConnectButton" class = "Button" type = "submit" value = "Connect" onclick = "Connect()">
+      </div>
+      <h2 id = "RoomID"> Gameroom : None </h2>
+    </div>
+    <fieldset id = "Gamefieldset">
+      <legend id = "Gamelegend">Still Loading</legend>
+    <div id="nestCanvas"></div>
+    <div id = "Gamewindow">Game - Still Loading | Make sure to connect with both roomname and username.</div>
+    </fieldset>
+    <div id="hud">
+      <fieldset>
+        Health:<span id="health">[ 100 ]</span><br>
+        Hunger:<span id="hunger">[ 100 ]</span><br>
+      </fieldset>
+      <fieldset>
+        <span onclick="loadhudInventory();" class="hudbutton">[ Inventory ]</span> | <span onclick="loadhudPlayers();" class="hudbutton">[ Players ]</span> | <span onclick="loadhudInfo();" class="hudbutton">[ Info ]</span> | <span onclick="loadhudDebug();" class="hudbutton">[ Debug ]</span> | <span onclick="loadhudFriends();" class="hudbutton">[ Friends ]</span>
+        <div id="hudSection">^^^ Select an option above! ^^^</div>
+      </fieldset>
+    </div>
+    
+    <div id = "keystrokesVisual">|Up|Down|Left|Right| - Still Loading</div>
+
+    <fieldset>
+      <legend>--Chat--</legend>
+      <div id = "chatDiv"> </div>
+    </fieldset>
+
+    <fieldset id="debugFieldset">
+      <div id="debugSet"></div>
+    </fieldset>
+  </body>
+</html>

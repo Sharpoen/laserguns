@@ -1,0 +1,424 @@
+{
+  "files": {
+    "html/game.js": [
+      {
+        "id": "f5e6cfe0-f58f-45b0-8a18-c5e98bd69a08",
+        "line": 1,
+        "version": 3742,
+        "index": 0
+      },
+      {
+        "id": "994b7026-299d-4ad9-964c-500ac982236c",
+        "line": 1,
+        "version": 3742,
+        "index": 0
+      },
+      {
+        "id": "93dacd86-175d-4256-8199-2866381df0bb",
+        "line": 4,
+        "version": 3742,
+        "index": 108
+      },
+      {
+        "id": "34a9f614-2b29-468e-9f1f-7e14857b76d4",
+        "line": 4,
+        "version": 3742,
+        "index": 108
+      },
+      {
+        "id": "e6b1bd0e-5caa-4d82-b5d6-f70b4d269ccf",
+        "line": 41,
+        "version": 3742,
+        "index": 638
+      },
+      {
+        "id": "462d82f3-002e-4e56-9b2a-653a9496b259",
+        "line": 41,
+        "version": 3742,
+        "index": 638
+      },
+      {
+        "id": "16a8b4f3-ea34-4ffb-adc9-d6fa741a9a6c",
+        "line": 49,
+        "version": 3742,
+        "index": 730
+      },
+      {
+        "id": "c70144dd-b3f0-4739-ac3c-93b3ee6d5766",
+        "line": 53,
+        "version": 3742,
+        "index": 918
+      },
+      {
+        "id": "f179a5a3-4d6f-4444-b02c-9aee5dcb68db",
+        "line": 56,
+        "version": 3742,
+        "index": 980
+      },
+      {
+        "id": "2ab3330e-e94e-47aa-831e-53debb5af819",
+        "line": 56,
+        "version": 3742,
+        "index": 968
+      },
+      {
+        "id": "ea554774-3650-40d2-94e6-87353b272ced",
+        "line": 57,
+        "version": 3742,
+        "index": 1052
+      },
+      {
+        "id": "bb09be0a-297d-4831-b511-d66a3bd5b166",
+        "line": 75,
+        "version": 3742,
+        "index": 1461
+      },
+      {
+        "id": "d4d0bfa0-80d4-46d8-bc12-0cda43baf317",
+        "line": 76,
+        "version": 3763,
+        "index": 1489
+      },
+      {
+        "id": "1e40f18d-cea6-457d-a389-f004af06f71d",
+        "line": 76,
+        "version": 3742,
+        "index": 1489
+      },
+      {
+        "id": "7aca676f-4e61-4642-832d-4356cb92fe3f",
+        "line": 76,
+        "version": 3742,
+        "index": 1489
+      },
+      {
+        "id": "d14e9a34-623d-4991-949a-b21f16257022",
+        "line": 94,
+        "version": 3742,
+        "index": 1988
+      },
+      {
+        "id": "2f2c25f5-c7a5-4047-9b26-c4811cbc3786",
+        "line": 98,
+        "version": 3742,
+        "index": 2084
+      },
+      {
+        "id": "7a91d3ed-dabd-4df7-97f2-10870cb48e5c",
+        "line": 98,
+        "version": 3742,
+        "index": 2084
+      },
+      {
+        "id": "1e8d77e5-48ca-40e3-b062-e962f8be019f",
+        "line": 101,
+        "version": 3742,
+        "index": 2165
+      },
+      {
+        "id": "4df8cb49-65a4-4ad3-b969-0716193d2cb0",
+        "line": 105,
+        "version": 3742,
+        "index": 2282
+      },
+      {
+        "id": "d7894790-14d4-4f55-9b9e-674764554165",
+        "line": 107,
+        "version": 3742,
+        "index": 2369
+      },
+      {
+        "id": "9e430f4e-d650-4a6f-a729-181e013ea003",
+        "line": 107,
+        "version": 3742,
+        "index": 2369
+      },
+      {
+        "id": "54455866-13fa-4f2b-9b82-fbb617583efb",
+        "line": 112,
+        "version": 3742,
+        "index": 2532
+      },
+      {
+        "id": "8f8889df-70dd-4a63-b215-e89efefba8ab",
+        "line": 121,
+        "version": 3742,
+        "index": 2810
+      },
+      {
+        "id": "517de822-6ffe-4d1e-8020-14227110dc29",
+        "line": 122,
+        "version": 3742,
+        "index": 2856
+      },
+      {
+        "id": "d9fa7c2a-e14c-4b94-94fa-acc99646876c",
+        "line": 123,
+        "version": 3742,
+        "index": 2870
+      },
+      {
+        "id": "7cdcf96a-bcc2-4fc9-81de-f781d72ff5cd",
+        "line": 123,
+        "version": 3742,
+        "index": 2870
+      },
+      {
+        "id": "4dcb35b1-d026-4459-ba56-b772998e33aa",
+        "line": 123,
+        "version": 3742,
+        "index": 2870
+      },
+      {
+        "id": "7d393e28-3cec-4e77-8e79-73a8d68f21a3",
+        "line": 123,
+        "version": 3742,
+        "index": 2870
+      },
+      {
+        "id": "6f321516-87e2-42b6-91a1-cdf41c14442c",
+        "line": 128,
+        "version": 3792,
+        "index": 3165
+      },
+      {
+        "id": "2288727a-9bc1-4a63-97bf-af4073f2172e",
+        "line": 140,
+        "version": 3742,
+        "index": 3575
+      },
+      {
+        "id": "2e014eb8-fc2e-4e20-83ad-1be560d3a5dc",
+        "line": 142,
+        "version": 3742,
+        "index": 3801
+      },
+      {
+        "id": "c43da5a0-443f-4123-8ddb-4113ae22cdca",
+        "line": 142,
+        "version": 3742,
+        "index": 3821
+      },
+      {
+        "id": "650459c7-5cdf-4df2-9d51-9fdd853e70cc",
+        "line": 142,
+        "version": 3742,
+        "index": 4349
+      },
+      {
+        "id": "572d7c7f-41b8-4521-afda-b38e7d37a7dd",
+        "line": 142,
+        "version": 3742,
+        "index": 4349
+      },
+      {
+        "id": "5619490d-a152-4a36-be3f-83c74d7c5b6e",
+        "line": 142,
+        "version": 3742,
+        "index": 5432
+      }
+    ],
+    "html/handlemultiplayer.js": [
+      {
+        "id": "e0a804d9-e614-4274-aff7-cea65245ccc7",
+        "line": 21,
+        "version": 550,
+        "index": 477
+      },
+      {
+        "id": "5f8af811-462a-43f1-b46e-302bfff09f9e",
+        "line": 24,
+        "version": 550,
+        "index": 569
+      }
+    ],
+    "html/index.html": [
+      {
+        "id": "ab9c1af3-2b42-4bd0-922b-fe9c7368f3f2",
+        "line": 9,
+        "version": 1644,
+        "index": 293
+      },
+      {
+        "id": "bcd713a8-a54f-4d71-b575-f40aed78ef03",
+        "line": 11,
+        "version": 1644,
+        "index": 378
+      },
+      {
+        "id": "00d92dc9-8b19-46b1-8bf8-20efd73572ba",
+        "line": 13,
+        "version": 1644,
+        "index": 480
+      },
+      {
+        "id": "f0168d67-06ec-4a45-b5ac-5005db1de205",
+        "line": 13,
+        "version": 1644,
+        "index": 522
+      },
+      {
+        "id": "87b20967-3787-442c-9944-eff933a6cae1",
+        "line": 15,
+        "version": 1644,
+        "index": 766
+      },
+      {
+        "id": "969d44e5-dad3-4faf-9364-46a61b174376",
+        "line": 41,
+        "version": 1644,
+        "index": 2145
+      },
+      {
+        "id": "4fee7820-8558-45d6-be18-434aa8118c56",
+        "line": 43,
+        "version": 1644,
+        "index": 2226
+      },
+      {
+        "id": "230616f7-0321-4e61-b5cf-9aa1a5f8f766",
+        "line": 44,
+        "version": 1644,
+        "index": 2238
+      },
+      {
+        "id": "120a73a4-ad1c-43a1-b93f-cb2cb82b4318",
+        "line": 44,
+        "version": 1644,
+        "index": 2238
+      },
+      {
+        "id": "12af2141-2ba3-4581-a8cf-e0dfabda20fe",
+        "line": 44,
+        "version": 1644,
+        "index": 2238
+      },
+      {
+        "id": "1b6d023b-8399-410a-8ecf-bf4599d0870a",
+        "line": 55,
+        "version": 1644,
+        "index": 2501
+      }
+    ],
+    "html/inputs.js": [
+      {
+        "id": "0eced5b0-ab44-431f-ba1d-04d2140de3b8",
+        "line": 17,
+        "version": 260,
+        "index": 380
+      },
+      {
+        "id": "da11d3cc-8ee9-4b45-9399-55b4447a628e",
+        "line": 21,
+        "version": 260,
+        "index": 476
+      },
+      {
+        "id": "6ac790b4-5f96-4a35-a412-6e5466abc873",
+        "line": 21,
+        "version": 260,
+        "index": 476
+      }
+    ],
+    "html/loadhud.js": [
+      {
+        "id": "860f11dc-0ea4-4ec8-993a-588a88d50199",
+        "line": 1,
+        "version": 879,
+        "index": 0
+      },
+      {
+        "id": "28a214d6-9253-4eb6-a82b-83c8f9784a19",
+        "line": 42,
+        "version": 998,
+        "index": 1004
+      },
+      {
+        "id": "edbe253a-608c-4a73-b430-697d5cd9834b",
+        "line": 43,
+        "version": 1030,
+        "index": 1072
+      },
+      {
+        "id": "8bc13d51-23f2-4442-a3c2-697adb1ad042",
+        "line": 53,
+        "version": 879,
+        "index": 1515
+      },
+      {
+        "id": "5b3a5e41-823f-49b2-a117-bf5baa4382da",
+        "line": 55,
+        "version": 1030,
+        "index": 1383
+      },
+      {
+        "id": "712c04f7-4bdf-4c5a-9d72-4b864dfca12e",
+        "line": 69,
+        "version": 1168,
+        "index": 1718
+      }
+    ],
+    "html/pre.js": [
+      {
+        "id": "15471d3c-c8da-4ef0-8867-ea75bb911f5b",
+        "line": 2,
+        "version": 652,
+        "index": 16
+      },
+      {
+        "id": "983babf8-131a-46c6-951b-a477669ae1a0",
+        "line": 23,
+        "version": 705,
+        "index": 240
+      }
+    ],
+    "html/script.js": [
+      {
+        "id": "236a0ecc-22ae-44a9-99f7-7fd35cce28be",
+        "line": 1,
+        "version": 1391,
+        "index": 0
+      },
+      {
+        "id": "74600aa3-8938-42c7-9714-374cb05e0b4a",
+        "line": 8,
+        "version": 1391,
+        "index": 193
+      },
+      {
+        "id": "f3f2ffae-41ee-43d0-90c3-71e22e229543",
+        "line": 17,
+        "version": 1391,
+        "index": 382
+      },
+      {
+        "id": "464f7b41-53ce-4add-8414-7732a1305b40",
+        "line": 39,
+        "version": 1391,
+        "index": 824
+      }
+    ],
+    "html/style.css": [
+      {
+        "id": "672e19d2-4cb9-48e2-a9fb-09972dbe19d5",
+        "line": 66,
+        "version": 560,
+        "index": 850
+      }
+    ],
+    "index.js": [
+      {
+        "id": "d4b77023-78f6-477b-b888-67212274e61c",
+        "line": 70,
+        "version": 476,
+        "index": 983
+      },
+      {
+        "id": "609d5229-5c9e-4da4-94f5-8a98ae1b3cd0",
+        "line": 75,
+        "version": 476,
+        "index": 1107
+      }
+    ]
+  }
+}
