@@ -47,19 +47,23 @@ span, .red{
   float: left;
 }
 
-#health, #hunger{
-  color: red;
+#health, #hunger, .dataText{
+  color: lightcoral;
   background-color: black;
   font-family: 'Courier New', Courier, monospace
 }
 
-#nestCanvas{
+/* #nestCanvas{
   
-}
+} */
 
 .hudbutton{
   color:lime;
   background-color: black;
+}
+.hudbutton:hover{
+  color:black;
+  background-color: lime;
 }
 
 /* #nestCanvas { border: 5px solid #303030; } */

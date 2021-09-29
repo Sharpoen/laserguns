@@ -40,10 +40,19 @@
         <span onclick="loadhudInventory();" class="hudbutton">[ Inventory ]</span> | <span onclick="loadhudPlayers();" class="hudbutton">[ Players ]</span> | <span onclick="loadhudInfo();" class="hudbutton">[ Info ]</span> | <span onclick="loadhudDebug();" class="hudbutton">[ Debug ]</span> | <span onclick="loadhudFriends();" class="hudbutton">[ Friends ]</span>
         <div id="hudSection">^^^ Select an option above! ^^^</div>
       </fieldset>
+      <fieldset id="debugValues">
+        <span class="dataText" id="fps">FPS:40</span>
+      </fieldset>
     </div>
-    
-    <div id = "keystrokesVisual">|Up|Down|Left|Right| - Still Loading</div>
 
+    <div id = "keystrokesVisual">|Up|Down|Left|Right| - Still Loading</div>
+    <div id = "mobileSupport">
+      <button onclick="moveU();">Up</button>
+      <button onclick="moveD();">Down</button>
+      <button onclick="moveL();">Left</button>
+      <button onclick="moveR();">Right</button>
+      <button onclick="moveS();">Standstill</button>
+    </div>
     <fieldset>
       <legend>--Chat--</legend>
       <div id = "chatDiv"> </div>

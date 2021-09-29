@@ -45,6 +45,20 @@ setInterval(function(){
 
 
 setInterval(function(){
+
+  if(inputs["up"]){
+    y-=speed;
+  }
+  if(inputs["down"]){
+    y+=speed;
+  }
+  if(inputs["left"]){
+    x-=speed;
+  }
+  if(inputs["right"]){
+    x+=speed;
+  }
+  
   var keystrokesVisualRenderString="";
   if(inputs["up"]){
     keystrokesVisualRenderString+="|<span class=\"red\">Up</span>|";

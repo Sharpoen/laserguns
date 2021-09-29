@@ -7,6 +7,8 @@ var name="";
 var x=0;
 var y=0;
 
+var speed=3;
+
 var linkPls={
   
 };
@@ -20,7 +22,7 @@ var debug={
   "testDebugItem3":false,
 }
 
-inventory = {
+var inventory={
   "hand":1,
   "sand":32,
   "sword":1
@@ -28,16 +30,22 @@ inventory = {
 
 var holdingItem="hand";
 
+var friends={
+
+}
+
+
 function resetData(){
   chat="empty";
   lastJoin="";
   holdingItem="hand";
   // name="";
-  inventory = {
+  inventory={
     "hand":1,
     "sand":32,
     "sword":1
   };
+  friends={};
   
   loadhudInventory();
 

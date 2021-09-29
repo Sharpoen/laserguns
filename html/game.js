@@ -21,20 +21,7 @@ setInterval(function(){
 function draw(){
   background(100,100,255);
 
-  chat=frameRate();
-
-  if(inputs["up"]){
-    y-=2;
-  }
-  if(inputs["down"]){
-    y+=2;
-  }
-  if(inputs["left"]){
-    x-=2;
-  }
-  if(inputs["right"]){
-    x+=2;
-  }
+  document.getElementById("fps").innerHTML="FPS: [ "+round(frameRate())+" ]";
 
   var max;
   // if(width>height){
@@ -72,24 +59,20 @@ function draw(){
   for(n in blocksU){
     // testStr+=n+", ";
     var b=blocksU[n]
-    if(b.type=="sand"){
-      fill(255,255,0);
-      rect(b.x-x+width/2-7.5,b.y-y+height/2-7.5,15,15);
-      
-      if(debug.blockoverlay){
-        fill(100);
-      }
+    if(b.solid){
       if(dist(x,y,b.x,b.y)<15){
-        fill(60,255,225);
         x-=(b.x-x)/3.14;//nothing to do with pi, just optimal for collision
         y-=(b.y-y)/3.14;
           //temporary collision patch
             x=round(x/15)*15
             y=round(y/15)*15
       }
-      if(debug.blockoverlay){
-        ellipse(b.x-x+width/2,b.y-y+height/2,15,15);
-      }
+    }
+    if(b.type=="sand"){
+      fill((255/b.maxhp)*b.hp,(255/b.maxhp)*b.hp,0);
+      rect(b.x-x+width/2-7.5,b.y-y+height/2-7.5,15,15);
+      
+
     }
   }
   // chat=testStr;
@@ -121,7 +104,7 @@ function draw(){
     if(inputs["clickL"]){
       if(holdingItem=="sand"){
         if(inventory[holdingItem]>0){
-          var newBlock={x:round((mouseX+x-width/2)/15)*15,y:round((mouseY+y-height/2)/15)*15,id:round((mouseX+x-width/2)/15)*15+":"+round((mouseY+y-height/2)/15)*15,type:"sand",hp:10};
+          var newBlock={x:round((mouseX+x-width/2)/15)*15,y:round((mouseY+y-height/2)/15)*15,id:round((mouseX+x-width/2)/15)*15+":"+round((mouseY+y-height/2)/15)*15,type:"sand",hp:10,maxhp:10,solid:true};
           blocks[newBlock.id]=newBlock;
           socket.emit("block",newBlock);
           
@@ -130,9 +113,20 @@ function draw(){
         }
       }
       if(holdingItem=="hand"){
-        var newBlock={x:round((mouseX+x-width/2)/15)*15,y:round((mouseY+y-height/2)/15)*15,id:round((mouseX+x-width/2)/15)*15+":"+round((mouseY+y-height/2)/15)*15,type:"air",hp:10};
-        blocks[newBlock.id]=newBlock;
-        socket.emit("block",newBlock);
+        if(round((mouseX+x-width/2)/15)*15+":"+round((mouseY+y-height/2)/15)*15 in blocks){
+          var newBlock=blocks[round((mouseX+x-width/2)/15)*15+":"+round((mouseY+y-height/2)/15)*15];
+
+          newBlock.hp-=1;
+
+          if(newBlock.hp>0){
+            blocks[round((mouseX+x-width/2)/15)*15+":"+round((mouseY+y-height/2)/15)*15]=newBlock;
+          }else{
+            newBlock={x:round((mouseX+x-width/2)/15)*15,y:round((mouseY+y-height/2)/15)*15,id:round((mouseX+x-width/2)/15)*15+":"+round((mouseY+y-height/2)/15)*15,type:"air",hp:10,maxhp:10,solid:false};
+            blocks[newBlock.id]=newBlock;
+          }
+          socket.emit("block",newBlock);
+
+        }
       }
     }
   }

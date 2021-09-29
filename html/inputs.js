@@ -30,3 +30,22 @@ window.onkeydown = function(){
 window.onkeyup = function(){
     inputs[inputLinks[event.keyCode]]=false;
 }
+
+function moveU(){
+  inputs["up"]=!inputs["up"];
+}
+function moveD(){
+  inputs["down"]=!inputs["down"];
+}
+function moveR(){
+  inputs["right"]=!inputs["right"];
+}
+function moveL(){
+  inputs["left"]=!inputs["left"];
+}
+function moveS(){
+  inputs["up"]=false;
+  inputs["down"]=false;
+  inputs["left"]=false;
+  inputs["right"]=false;
+}
