@@ -4,6 +4,19 @@ function setup(){
   frameRate(60);
 }
 
+function updateHealth(add){
+  health+=add;
+  document.getElementById("health").innerHTML="[ "+health+" ]";
+  if(health<=0){
+    resetData();
+  }
+}
+
+// setInterval(function(){
+//   updateHealth(-1);
+// },500);
+
+
 setInterval(function(){
 
   var playersListMoniterString = "Players Online : ";
@@ -19,6 +32,7 @@ setInterval(function(){
 
 
 function draw(){
+  var mouseOver=[];
   background(100,100,255);
 
   document.getElementById("fps").innerHTML="FPS: [ "+round(frameRate())+" ]";
@@ -93,7 +107,15 @@ function draw(){
       //       x=round(x/15)*15
       //       y=round(y/15)*15
       // }
-      fill(255,0,0,100);
+  
+      fill(255,0,0,25);
+      if(dist(mouseX,mouseY,plsU[i].x+width/2-x,plsU[i].y+height/2-y)<15){
+        fill(0,2555,0,50);
+        mouseOver.push(plsU[i].name);
+      }
+      ellipse(plsU[i].x+width/2-x,plsU[i].y+height/2-y,30,30);
+
+      fill(255,0,0);
       ellipse(plsU[i].x+width/2-x,plsU[i].y+height/2-y,15,15);
     }
   }
@@ -112,6 +134,30 @@ function draw(){
           loadhudInventory();
         }
       }
+      if(holdingItem=="shovel"){
+        if(round((mouseX+x-width/2)/15)*15+":"+round((mouseY+y-height/2)/15)*15 in blocks){
+          var newBlock=blocks[round((mouseX+x-width/2)/15)*15+":"+round((mouseY+y-height/2)/15)*15];
+          
+          if(newBlock.type=="sand"){
+            newBlock.hp-=6;
+          }
+
+          if(newBlock.hp>0){
+            blocks[round((mouseX+x-width/2)/15)*15+":"+round((mouseY+y-height/2)/15)*15]=newBlock;
+          }else{
+            if(newBlock.type in inventory){
+              inventory[newBlock.type]+=1;
+            }else{
+              inventory[newBlock.type]=1;
+            }
+            loadhudInventory();
+            newBlock={x:round((mouseX+x-width/2)/15)*15,y:round((mouseY+y-height/2)/15)*15,id:round((mouseX+x-width/2)/15)*15+":"+round((mouseY+y-height/2)/15)*15,type:"air",hp:10,maxhp:10,solid:false};
+            blocks[newBlock.id]=newBlock;
+          }
+          socket.emit("block",newBlock);
+
+        }
+      }
       if(holdingItem=="hand"){
         if(round((mouseX+x-width/2)/15)*15+":"+round((mouseY+y-height/2)/15)*15 in blocks){
           var newBlock=blocks[round((mouseX+x-width/2)/15)*15+":"+round((mouseY+y-height/2)/15)*15];
@@ -127,6 +173,10 @@ function draw(){
           socket.emit("block",newBlock);
 
         }
+      }
+      if(holdingItem=="sword"){
+        // alert(mouseOver);
+        socket.emit("interact",{"attack":mouseOver,"damage":-10})
       }
     }
   }

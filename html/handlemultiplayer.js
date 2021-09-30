@@ -1,7 +1,8 @@
 var socket;
 var usernameInput
 var chatIDInput;
-var messageInput;
+var chatInput;
+var messageIn;
 var chatRoom;
 var dingSound;
 var messages = [];
@@ -11,6 +12,7 @@ function onload(){
   socket = io();
   usernameInput = document.getElementById("NameInput");
   chatIDInput = document.getElementById("IDInput");
+  chatIn = document.getElementById("chatIn");
   messageInput = document.getElementById("ComposedMessage");
   chatRoom = document.getElementById("RoomID");
 
@@ -46,12 +48,35 @@ function onload(){
     blocks[block.id]=block;
     chatd[0]=block.id;
   });
+
+  socket.on("interact",function(data){
+    // alert(data["attack"]);
+    // alert(data["damage"]);
+    if(data["attack"]!=undefined && data["damage"]!=undefined){
+      if(data["attack"].includes(name)){
+        updateHealth(data["damage"]);
+      }
+    }
+  });
+
+  socket.on("playerChat",function(data){
+    // alert(data["attack"]);
+    // alert(data["damage"]);
+    chat+="<br>"+"[ "+data.name+" ] ~ "+data.chat;
+  });
+
+
 }
+
 
 function Connect(){
   socket.emit("joingame", chatIDInput.value, usernameInput.value);
   name=usernameInput.value;
   resetData();
+}
+function SubmitChat(){
+  socket.emit("playerChat", {chat:chatIn.value,name:name});
+  chatIn.value="";
 }
 
 function Send(){

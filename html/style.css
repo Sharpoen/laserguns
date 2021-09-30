@@ -66,4 +66,9 @@ span, .red{
   background-color: lime;
 }
 
+#chatDiv{
+  height: 100px;
+  overflow-y: scroll;
+}
+
 /* #nestCanvas { border: 5px solid #303030; } */

@@ -89,13 +89,19 @@ io.on('connection', function(socket){
 
   socket.on("block",function(block){
     io.in(rooms[socket.id]).emit("block",block);
-      // if(!(rooms[socket.id] in roomData)){
-      //   roomData[rooms[socket.id]]=roomDataPreset(usernames[socket.id]);
-      // }
+      if(!(rooms[socket.id] in roomData)){
+        roomData[rooms[socket.id]]=roomDataPreset(usernames[socket.id]);
+      }
     roomData[rooms[socket.id]]["blocks"][block.id]=block;
   });
 
   socket.on("recieve", function(message){
     socket.emit("recieve", message);
-  })
+  });
+  socket.on("interact", function(message){
+    io.in(rooms[socket.id]).emit("interact", message);
+  });
+  socket.on("playerChat", function(message){
+    io.in(rooms[socket.id]).emit("playerChat", message);
+  });
 });

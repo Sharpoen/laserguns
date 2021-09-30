@@ -1,5 +1,5 @@
 var chatd = [];
-var chat="empty";
+var chat="";
 var lastJoin="";
 
 var name="";
@@ -24,8 +24,10 @@ var debug={
 
 var inventory={
   "hand":1,
-  "sand":32,
-  "sword":1
+  "sand":64,
+  "sword":1,
+  "shovel":1,
+  "wood":16,
 };
 
 var holdingItem="hand";
@@ -36,20 +38,25 @@ var friends={
 
 var owner="";
 
+var health = 100;
+
 function resetData(){
   chat="empty";
   lastJoin="";
   holdingItem="hand";
   // name="";
-  inventory={
+  var inventory={
     "hand":1,
-    "sand":32,
-    "sword":1
+    "sand":64,
+    "sword":1,
+    "shovel":1,
+    "wood":16,
   };
   friends={};
   
   loadhudInventory();
-
+  
+  health=100;
   
   x=round(((Math.random()*-(15*10))+(Math.random()*(15*10)))/15)*15;
   y=round(((Math.random()*-(15*10))+(Math.random()*(15*10)))/15)*15;
@@ -58,5 +65,5 @@ function resetData(){
     
   };
   pls=[];
-  blocks={};
+  // blocks={};
 }
