@@ -18,8 +18,9 @@ var usernames = [];
 
 var roomData={};
 
-function roomDataPreset(){
+function roomDataPreset(owner){
   this.data={
+    "owner":owner,
     "blocks":{
 
     },
@@ -68,14 +69,15 @@ io.on('connection', function(socket){
       socket.join(room);
 
       if(!(room in roomData)){
-        roomData[room]=roomDataPreset();
+        roomData[rooms[socket.id]]=roomDataPreset(usernames[socket.id]);
       }
 
       io.in(room).emit("crecieve", {
         text:"Server : " + username + " has entered the chat.",
-        blocks:roomData[room]["blocks"]
+        blocks:roomData[rooms[socket.id]]["blocks"],
+        owner:roomData[rooms[socket.id]]["owner"]
       });
-      socket.emit("join", room);
+      socket.emit("join", rooms[socket.id]);
     }
   })
 
@@ -87,13 +89,13 @@ io.on('connection', function(socket){
 
   socket.on("block",function(block){
     io.in(rooms[socket.id]).emit("block",block);
-      if(!(rooms[socket.id] in roomData)){
-        roomData[rooms[socket.id]]=roomDataPreset();
-      }
+      // if(!(rooms[socket.id] in roomData)){
+      //   roomData[rooms[socket.id]]=roomDataPreset(usernames[socket.id]);
+      // }
     roomData[rooms[socket.id]]["blocks"][block.id]=block;
   });
 
   socket.on("recieve", function(message){
     socket.emit("recieve", message);
   })
-})
+});

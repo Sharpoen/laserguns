@@ -38,6 +38,7 @@ function onload(){
       // lastJoin=message[1];
       // lastJoin+="0";
       blocks = message["blocks"];
+      owner = message["owner"];
 
     });
 

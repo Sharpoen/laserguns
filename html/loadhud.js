@@ -2,11 +2,15 @@ function loadhudInfo(){
   document.getElementById("hudSection").innerHTML="[ Info ]<br>Game by 52eagle on Replit.com<br>Update Info:<br>* Added blocks & and improved collisions<br>* Improved UI & added tools like a debug option window<br>Update Plans:<br>* Zombies & Slashings<br>* Friends & Foes<br>* Guns & Goblins<br><br>[ Credits ]<br>* 52eagle - Creator & Main Director";
 }
 function loadhudPlayers(){
-  var playerString="[ Players ]<br>";
+  var playerString="[ Players ]<br>[ Owner ] "+owner+"<br>";
   var plsU=pls;
   
   for(let i=0;i<plsU.length;i++){
-    playerString+=plsU[i].name+"<br>";
+    if(owner==plsU[i].name){
+      playerString+="* "+plsU[i].name+' <span class="dataText">[ Owner ]</span><br>';
+    }else{
+      playerString+="* "+plsU[i].name+"<br>";
+    }
   }
   document.getElementById("hudSection").innerHTML=playerString;
 }

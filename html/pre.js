@@ -34,6 +34,7 @@ var friends={
 
 }
 
+var owner="";
 
 function resetData(){
   chat="empty";
