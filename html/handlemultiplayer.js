@@ -62,7 +62,12 @@ function onload(){
   socket.on("playerChat",function(data){
     // alert(data["attack"]);
     // alert(data["damage"]);
-    chat+="<br>"+"[ "+data.name+" ] ~ "+data.chat;
+    chatd.push({chat:data.chat,name:data.name});
+    chat="";
+    for(let i = chatd.length-1;i>=0;i--){
+      chat+="[ "+chatd[i].name+" ] ~ "+chatd[i].chat+"<br>";
+    }
+    document.getElementById("chatDiv").innerHTML=chat;
   });
 
 

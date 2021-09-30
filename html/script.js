@@ -38,7 +38,7 @@ setInterval(function(){
 
   document.getElementById("Gamelegend").innerHTML=legendAnimFrames[legendAnimFrame];
 
-  document.getElementById("chatDiv").innerHTML=chat;
+  // document.getElementById("chatDiv").innerHTML=chat;
 
   document.getElementById("debugSet").innerHTML="pls : "+plsMoniterString+"<br>linkPls : "+linkMoniterString+"<br>lastJoin : "+lastJoin+"<br>Debug Set - My school turned off console! D:";
 },100);
