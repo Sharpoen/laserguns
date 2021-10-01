@@ -1,4 +1,3 @@
-var chatd = [];
 var chat="";
 var lastJoin="";
 
@@ -41,7 +40,7 @@ var owner="";
 var health = 100;
 
 function resetData(){
-  chat="empty";
+  chat="";
   lastJoin="";
   holdingItem="hand";
   // name="";

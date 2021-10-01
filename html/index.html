@@ -17,19 +17,19 @@
   <body onload = "onload()" oncontextmenu="return false;">
     <div id = "Roomconnect">
       <div id = "AccessPort">
-        <label id = "NameLabel"> Username  </label>
+        <label id = "NameLabel"> Gamertag  </label>
         <input id = "NameInput" type = "text">
         <br>
-        <label id = "IDLabel"> Gameroom </label>
+        <label id = "IDLabel"> Server </label> 
         <input id = "IDInput" value = "Room1" type = "text">
         <input id = "ConnectButton" class = "Button" type = "submit" value = "Connect" onclick = "Connect()">
       </div>
-      <h2 id = "RoomID"> Gameroom : None </h2>
+      <h2 id = "RoomID"> Server : None </h2>
     </div>
     <fieldset id = "Gamefieldset">
-      <legend id = "Gamelegend">Still Loading</legend>
+      <legend id = "Gamelegend"></legend>
     <div id="nestCanvas"></div>
-    <div id = "Gamewindow">Game - Still Loading | Make sure to connect with both roomname and username.</div>
+    <div id = "Gamewindow">Game - Still Loading | Make sure to input Gamertag and Server.</div>
     </fieldset>
     <div id="hud">
       <fieldset>
@@ -38,29 +38,23 @@
       </fieldset>
       <fieldset>
         <span onclick="loadhudInventory();" class="hudbutton">[ Inventory ]</span> | <span onclick="loadhudPlayers();" class="hudbutton">[ Players ]</span> | <span onclick="loadhudInfo();" class="hudbutton">[ Info ]</span> | <span onclick="loadhudDebug();" class="hudbutton">[ Debug ]</span> | <span onclick="loadhudFriends();" class="hudbutton">[ Friends ]</span>
-        <div id="hudSection">^^^ Select an option above! ^^^</div>
+        <div id="hudSection"></div>
       </fieldset>
       <fieldset id="debugValues">
         <span class="dataText" id="fps">FPS:40</span>
       </fieldset>
     </div>
 
-    <div id = "keystrokesVisual">|Up|Down|Left|Right| - Still Loading</div>
-    <div id = "mobileSupport">
-      <button onclick="moveU();">Up</button>
-      <button onclick="moveD();">Down</button>
-      <button onclick="moveL();">Left</button>
-      <button onclick="moveR();">Right</button>
-      <button onclick="moveS();">Standstill</button>
-    </div>
-    <fieldset>
+    <fieldset id="chatFieldset">
       <legend>--Chat--</legend>
       <a>
-      <div id = "chatDiv"></div>
+        <div id = "chatScroller">
+          <div id = "chatDiv"></div>
+          <div id = "endOfChat"></div>
+        </div>
       </a>
       <input id="chatIn"></input> | <input id = "ChatButton" class = "Button" type = "submit" value = "Submit" onclick = "SubmitChat()">
     </fieldset>
-
     <fieldset id="debugFieldset">
       <div id="debugSet"></div>
     </fieldset>

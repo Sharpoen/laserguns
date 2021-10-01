@@ -17,8 +17,8 @@ function onload(){
   chatRoom = document.getElementById("RoomID");
 
   socket.on("join", function(room){
-    chatRoom.innerHTML = "Gameroom : " + room;
-  })
+    chatRoom.innerHTML = "Server : " + room;
+  });
 
   socket.on("recieve", function(message){
     // chat+=message[0];
@@ -62,12 +62,9 @@ function onload(){
   socket.on("playerChat",function(data){
     // alert(data["attack"]);
     // alert(data["damage"]);
-    chatd.push({chat:data.chat,name:data.name});
-    chat="";
-    for(let i = chatd.length-1;i>=0;i--){
-      chat+="[ "+chatd[i].name+" ] ~ "+chatd[i].chat+"<br>";
-    }
+    chat+="[ "+data.name+" ] ~ "+data.chat+"<br>";
     document.getElementById("chatDiv").innerHTML=chat;
+    document.getElementById("endOfChat").scrollIntoView();
   });
 
 

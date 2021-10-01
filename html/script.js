@@ -5,24 +5,6 @@ window.addEventListener("load", function () {
 var legendAnimFrame=0;
 
 setInterval(function(){
-  var legendAnimFrames=[
-    "|Square Game",
-    "Square Game|",
-    "quare Game|S",
-    "uare Game|Sq",
-    "are Game|Squ",
-    "re Game|Squa",
-    "e Game|Squar",
-    " Game|Square",
-    "Game|Square ",
-    "ame|Square G",
-    "me|Square Ga",
-    "e|Square Gam",
-    ]
-  legendAnimFrame+=1;
-  if(legendAnimFrame>=12){
-    legendAnimFrame=0;
-  }
 
   var plsMoniterString = "[";
   for(let i=0;i<pls.length;i++){
@@ -35,8 +17,6 @@ setInterval(function(){
     linkMoniterString+=linkPls[n]+",";
   }
   linkMoniterString+="},"+linkPls.length;
-
-  document.getElementById("Gamelegend").innerHTML=legendAnimFrames[legendAnimFrame];
 
   // document.getElementById("chatDiv").innerHTML=chat;
 
@@ -59,29 +39,25 @@ setInterval(function(){
     x+=speed;
   }
   
-  var keystrokesVisualRenderString="";
-  if(inputs["up"]){
-    keystrokesVisualRenderString+="|<span class=\"red\">Up</span>|";
-  }else{
-    keystrokesVisualRenderString+="|Up|";
-  }
-  if(inputs["down"]){
-    keystrokesVisualRenderString+="<span class=\"red\">Down</span>|";
-  }else{
-    keystrokesVisualRenderString+="Down|";
-  }
-  if(inputs["left"]){
-    keystrokesVisualRenderString+="<span class=\"red\">Left</span>|";
-  }else{
-    keystrokesVisualRenderString+="Left|";
-  }
-  if(inputs["right"]){
-    keystrokesVisualRenderString+="<span class=\"red\">Right</span>|";
-  }else{
-    keystrokesVisualRenderString+="Right|";
-  }
-
-  document.getElementById("keystrokesVisual").innerHTML=keystrokesVisualRenderString;
-
   Send();
 },50);
+
+
+// document.getElementById("chatIn").keydown=function(e){
+//     if(e.which === 13){
+//         submitChat();
+//     }
+// }
+
+// document.getElementById("chatIn").addEventListener("keydown", function(){
+//     if(event.which==13){
+//       // window.alert("left mouse");
+//       submitChat();
+//     }
+// });
+
+document.onkeydown = function(event){
+    if(event.which==13){
+      SubmitChat();
+    }
+}

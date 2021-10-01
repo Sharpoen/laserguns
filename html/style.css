@@ -1,6 +1,6 @@
 body{
-  background: #f5f5f5;
-  color: #303030;
+  background: #2D3033;
+  color: white;
   font-family: 'Segoe UI';
 }
 
@@ -23,7 +23,7 @@ input{
 }
 
 #Roomconnect{
-  background: white;
+  background: #2D3033;
   border-radius: 1%;
   padding-left: 1%;
 }
@@ -37,10 +37,11 @@ span, .red{
   background: red;
 }
 
-#keystrokesVisual{
-  font-family: monospace, consolas;
+#chatFieldset{
+  /* font-family: monospace, consolas; */
   float:unset;
   clear:left;
+  width:50%
 }
 
 #Gamefieldset, #hud {
@@ -58,15 +59,15 @@ span, .red{
 } */
 
 .hudbutton{
-  color:lime;
+  color: lightseagreen;
   background-color: black;
 }
 .hudbutton:hover{
   color:black;
-  background-color: lime;
+  background-color: white;
 }
 
-#chatDiv{
+#chatScroller{
   height: 100px;
   overflow-y: scroll;
 }
