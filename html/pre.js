@@ -45,13 +45,12 @@ function resetData(){
   lastJoin="";
   holdingItem="hand";
   // name="";
-  var inventory={
-    "hand":1,
-    "sand":64,
-    "sword":1,
-    "shovel":1,
-    "wood":16,
-  };
+
+  inventory["hand"]=1;
+  inventory["sand"]=64;
+  inventory["sword"]=1;
+  inventory["shovel"]=1;
+  inventory["wood"]=16;
   friends={};
   
   loadhudInventory();
