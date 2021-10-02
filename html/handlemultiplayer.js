@@ -46,7 +46,6 @@ function onload(){
 
   socket.on("block",function(block){
     blocks[block.id]=block;
-    chatd[0]=block.id;
   });
 
   socket.on("interact",function(data){

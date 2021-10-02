@@ -28,15 +28,19 @@ setInterval(function(){
 
   if(inputs["up"]){
     y-=speed;
+    cy=floor(y/240);
   }
   if(inputs["down"]){
     y+=speed;
+    cy=floor(y/240);
   }
   if(inputs["left"]){
     x-=speed;
+    cx=floor(x/240);
   }
   if(inputs["right"]){
     x+=speed;
+    cx=floor(x/240);
   }
   
   Send();

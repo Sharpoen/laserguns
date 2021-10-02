@@ -2,6 +2,7 @@ function setup(){
   let renderer = createCanvas(windowWidth/100*65, windowHeight/100*65);
   renderer.parent("nestCanvas");
   frameRate(60);
+  noSmooth();
 }
 
 function windowResized() {
@@ -35,12 +36,28 @@ setInterval(function(){
 },2000);
 
 
-
 function draw(){
+  
   var mouseOver=[];
   background(27, 77, 62);
 
-  document.getElementById("fps").innerHTML="FPS: [ "+round(frameRate())+" ]<br>x: [ "+round(x/15)+" ]"+"<br>y: [ "+round(y/15)+" ]";
+  document.getElementById("fps").innerHTML="FPS: [ "+round(frameRate())+" ]<br>x: [ "+round(x/15)+" ]"+"<br>y: [ "+round(y/15)+" ]<br>cx: [ "+cx+" ]"+"<br>cy: [ "+cy+" ]";
+
+  
+  if(cx!=pcc[0]||cy!=pcc[1]){
+    renderChunks = loadChunks(settings["renderDistance"]);
+  }
+  var renderChunksU=renderChunks;
+  for(let i=0;i<renderChunksU.length;i++){
+
+    if(
+      chunks[renderChunksU[i][0]+":"+renderChunksU[i][1]]==undefined
+    ){
+      chunks[renderChunksU[i][0]+":"+renderChunksU[i][1]]=chunkPreset(images.chunks[Math.floor(Math.random() * images.chunks.length)]);
+    }
+
+    image(chunks[renderChunksU[i][0]+":"+renderChunksU[i][1]].image,-x+width/2-7.5+renderChunksU[i][0]*240,-y+height/2-7.5+renderChunksU[i][1]*240,240,240);
+  }
 
   var max;
   // if(width>height){
@@ -81,7 +98,7 @@ function draw(){
   line(max-x+width/2,max-y+height/2,min-x+width/2,min-y+height/2);
   line(max-x+width/2,min-y+height/2,min-x+width/2,max-y+height/2);
 
-
+//Player Settup
   fill(256,256,256);
   stroke(0,0);
   rect(width/2-7.5,height/2-7.5, 15, 15);
@@ -102,8 +119,8 @@ function draw(){
     }
     if(b.type=="sand"){
       fill((255/b.maxhp)*b.hp,(255/b.maxhp)*b.hp,0);
-      rect(b.x-x+width/2-7.5,b.y-y+height/2-7.5,15,15);
-      
+      // rect(b.x-x+width/2-7.5,b.y-y+height/2-7.5,15,15);
+      image(images.blocks[0],b.x-x+width/2-7.5,b.y-y+height/2-7.5,15,15);
 
     }
   }
@@ -201,4 +218,5 @@ function draw(){
 
   inputs["clickL"]=false;
   inputs["clickR"]=false;
+  pcc=[cx,cy];
 }
