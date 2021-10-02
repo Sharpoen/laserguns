@@ -43,19 +43,6 @@ setInterval(function(){
 },50);
 
 
-// document.getElementById("chatIn").keydown=function(e){
-//     if(e.which === 13){
-//         submitChat();
-//     }
-// }
-
-// document.getElementById("chatIn").addEventListener("keydown", function(){
-//     if(event.which==13){
-//       // window.alert("left mouse");
-//       submitChat();
-//     }
-// });
-
 document.onkeydown = function(event){
     if(event.which==13){
       SubmitChat();

@@ -1,7 +1,7 @@
 body{
-  background: #2D3033;
+  background: #1C2333;
   color: white;
-  font-family: 'Segoe UI';
+  font-family: 'Consolas';
 }
 
 label{
@@ -23,9 +23,10 @@ input{
 }
 
 #Roomconnect{
-  background: #2D3033;
+  background: #1C2333;
   border-radius: 1%;
   padding-left: 1%;
+  
 }
 
 #Title{
@@ -46,6 +47,9 @@ span, .red{
 
 #Gamefieldset, #hud {
   float: left;
+}
+#hud{
+  text-size-adjust: auto;
 }
 
 #health, #hunger, .dataText{

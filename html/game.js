@@ -1,8 +1,13 @@
 function setup(){
-  let renderer = createCanvas(700, 350);
+  let renderer = createCanvas(windowWidth/100*65, windowHeight/100*65);
   renderer.parent("nestCanvas");
   frameRate(60);
 }
+
+function windowResized() {
+  resizeCanvas(windowWidth/100*65, windowHeight/100*65);
+}
+
 
 function updateHealth(add){
   health+=add;
@@ -33,9 +38,9 @@ setInterval(function(){
 
 function draw(){
   var mouseOver=[];
-  background(100,100,255);
+  background(27, 77, 62);
 
-  document.getElementById("fps").innerHTML="FPS: [ "+round(frameRate())+" ]";
+  document.getElementById("fps").innerHTML="FPS: [ "+round(frameRate())+" ]<br>x: [ "+round(x/15)+" ]"+"<br>y: [ "+round(y/15)+" ]";
 
   var max;
   // if(width>height){
@@ -49,24 +54,37 @@ function draw(){
   if(debug.grid){
     strokeWeight(2);
     stroke(255,100);
-
-    for(let i=0;i<64;i++){
-      line(i*15-x+round(x/15)*15+width/2-round(width/15)/2*15,0,i*15-x+round(x/15)*15+width/2-round(width/15)/2*15,height);
-      // line(0,i,width,i);
+    // rect(round((mouseX+x-width/2)/15)*15+width/2-x-10,round((mouseY+y-height/2)/15)*15+height/2-y-10,20,20); 
+    // ^^^ Don't know why I didn't use this for cross-reference earlier, but oh well.
+    for(let i=0;i<128;i++){
+      line(round((i*15-width/2+x)/15)*15+width/2-x-7.5,0,round((i*15-width/2+x)/15)*15+width/2-x-7.5,height);
     }
     for(let i=0;i<64;i++){
-      line(0,i*15-y+round(y/15)*15+height/2-round(height/15)/2*15,width,i*15-y+round(y/15)*15+height/2-round(height/15)/2*15);
+      line(0,round((i*15-height/2+y)/15)*15+height/2-y-7.5,width,round((i*15-height/2+y)/15)*15+height/2-y-7.5);
       // line(i,0,i,height);
     }
+    strokeWeight(2);
+    stroke(255,0,0,255);
+
+
+    for(let i=0;i<16;i++){
+      line(round((i*15*16-width/2+x)/(15*16))*15*16+width/2-x-7.5,0,round((i*15*16-width/2+x)/(15*16))*15*16+width/2-x-7.5,height);
+      // line(0,i,width,i);
+    }
+    for(let i=0;i<16;i++){
+      line(0,round((i*15*16-height/2+y)/(15*16))*15*16+height/2-y-7.5,width,round((i*15*16-height/2+y)/(15*16))*15*16+height/2-y-7.5);
+      // line(i,0,i,height);
+    }
+
   }
 
   line(max-x+width/2,max-y+height/2,min-x+width/2,min-y+height/2);
   line(max-x+width/2,min-y+height/2,min-x+width/2,max-y+height/2);
 
 
-  fill(0,255,0);
+  fill(256,256,256);
   stroke(0,0);
-  ellipse(width/2,height/2,15,15);
+  rect(width/2-7.5,height/2-7.5, 15, 15);
 
   var blocksU=blocks;
   // var testStr="";
@@ -121,8 +139,8 @@ function draw(){
   }
 
   if(dist(mouseX,mouseY,width/2,height/2)<75){
-    fill(255,0,0,75);
-    ellipse(round((mouseX+x-width/2)/15)*15+width/2-x,round((mouseY+y-height/2)/15)*15+height/2-y,20,20);
+    fill(25,0,0,75);
+    rect(round((mouseX+x-width/2)/15)*15+width/2-x-10,round((mouseY+y-height/2)/15)*15+height/2-y-10,20,20);
     if(inputs["clickL"]){
       if(holdingItem=="sand"){
         if(inventory[holdingItem]>0){
