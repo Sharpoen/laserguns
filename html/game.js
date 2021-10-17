@@ -18,10 +18,6 @@ function updateHealth(add){
   }
 }
 
-// setInterval(function(){
-//   updateHealth(-1);
-// },500);
-
 
 setInterval(function(){
 
@@ -32,16 +28,19 @@ setInterval(function(){
   }
 
   document.getElementById("Gamewindow").innerHTML=playersListMoniterString;
-  // console.log(playersListMoniterString);
+
 },2000);
 
+var gamescreen = new outV1();
+
+
+// gamescreen.test();
 
 function draw(){
-  
   var mouseOver=[];
   background(27, 77, 62);
 
-  document.getElementById("fps").innerHTML="FPS: [ "+round(frameRate())+" ]<br>x: [ "+round(x/15)+" ]"+"<br>y: [ "+round(y/15)+" ]<br>cx: [ "+cx+" ]"+"<br>cy: [ "+cy+" ]";
+  document.getElementById("fps").innerHTML="FPS: [ "+round(frameRate())+" ]<br>x: [ "+round(x)+" ]"+"<br>y: [ "+round(y)+" ]<br>cx: [ "+cx+" ]"+"<br>cy: [ "+cy+" ]";
 
   
   if(cx!=pcc[0]||cy!=pcc[1]){
@@ -59,90 +58,23 @@ function draw(){
     image(chunks[renderChunksU[i][0]+":"+renderChunksU[i][1]].image,-x+width/2-7.5+renderChunksU[i][0]*240,-y+height/2-7.5+renderChunksU[i][1]*240,240,240);
   }
 
-  var max;
-  // if(width>height){
-  //   max=25;
-  // }else{
-  //   max=25;
-  // }
-  max=25;
-  var min=-max;
 
   if(debug.grid){
-    strokeWeight(2);
-    stroke(255,100);
-    // rect(round((mouseX+x-width/2)/15)*15+width/2-x-10,round((mouseY+y-height/2)/15)*15+height/2-y-10,20,20); 
-    // ^^^ Don't know why I didn't use this for cross-reference earlier, but oh well.
-    for(let i=0;i<128;i++){
-      line(round((i*15-width/2+x)/15)*15+width/2-x-7.5,0,round((i*15-width/2+x)/15)*15+width/2-x-7.5,height);
-    }
-    for(let i=0;i<64;i++){
-      line(0,round((i*15-height/2+y)/15)*15+height/2-y-7.5,width,round((i*15-height/2+y)/15)*15+height/2-y-7.5);
-      // line(i,0,i,height);
-    }
-    strokeWeight(2);
-    stroke(255,0,0,255);
-
-
-    for(let i=0;i<16;i++){
-      line(round((i*15*16-width/2+x)/(15*16))*15*16+width/2-x-7.5,0,round((i*15*16-width/2+x)/(15*16))*15*16+width/2-x-7.5,height);
-      // line(0,i,width,i);
-    }
-    for(let i=0;i<16;i++){
-      line(0,round((i*15*16-height/2+y)/(15*16))*15*16+height/2-y-7.5,width,round((i*15*16-height/2+y)/(15*16))*15*16+height/2-y-7.5);
-      // line(i,0,i,height);
-    }
-
+    gamescreen.render_grid();
   }
-
-  line(max-x+width/2,max-y+height/2,min-x+width/2,min-y+height/2);
-  line(max-x+width/2,min-y+height/2,min-x+width/2,max-y+height/2);
 
 //Player Settup
-  fill(256,256,256);
-  stroke(0,0);
-  rect(width/2-7.5,height/2-7.5, 15, 15);
+  gamescreen.old_render_player();
 
-  var blocksU=blocks;
-  // var testStr="";
-  for(n in blocksU){
-    // testStr+=n+", ";
-    var b=blocksU[n]
-    if(b.solid){
-      if(dist(x,y,b.x,b.y)<15){
-        x-=(b.x-x)/3.14;//nothing to do with pi, just optimal for collision
-        y-=(b.y-y)/3.14;
-          //temporary collision patch
-            x=round(x/15)*15
-            y=round(y/15)*15
-      }
-    }
-    if(b.type=="sand"){
-      fill((255/b.maxhp)*b.hp,(255/b.maxhp)*b.hp,0);
-      // rect(b.x-x+width/2-7.5,b.y-y+height/2-7.5,15,15);
-      image(images.blocks[0],b.x-x+width/2-7.5,b.y-y+height/2-7.5,15,15);
-
-    }
-  }
-  // chat=testStr;
-  // chat+=" ["+Object.keys(blocks).length+"] " + chatd[0];
-
+  gamescreen.old_render_blocks();
+  
   var plsU=pls;
   fill(255,0,0);
   for(let i=0;i<plsU.length;i++){
     if(plsU[i].name!=name){
       fill(0);
-      // stroke(0,255);
       text(plsU[i].name,plsU[i].x+width/2-x,plsU[i].y+height/2-y-10);
-      // if(dist(x,y,plsU[i].x,plsU[i].y)<15){
-      //   // fill(60,255,225);
-      //   x-=(plsU[i].x-x)/4;
-      //   y-=(plsU[i].y-y)/4;
-      //     //temporary collision patch
-      //       x=round(x/15)*15
-      //       y=round(y/15)*15
-      // }
-  
+
       fill(255,0,0,25);
       if(dist(mouseX,mouseY,plsU[i].x+width/2-x,plsU[i].y+height/2-y)<15){
         fill(0,2555,0,50);
@@ -210,7 +142,6 @@ function draw(){
         }
       }
       if(holdingItem=="sword"){
-        // alert(mouseOver);
         socket.emit("interact",{"attack":mouseOver,"damage":-10})
       }
     }

@@ -1,4 +1,4 @@
-var socket;
+var socket; 
 var usernameInput
 var chatIDInput;
 var chatInput;

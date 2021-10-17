@@ -1,6 +1,6 @@
 var chat="";
 var lastJoin="";
-
+//hi
 var name="";
 
 var x=0;
@@ -32,7 +32,7 @@ function loadChunks(rDist){
 }
 
 
-var speed=3;
+var speed=0.3;
 
 var linkPls={
   
@@ -41,9 +41,10 @@ var pls=[];
 var blocks=[];
 
 var settings={
-  "renderDistance":2
+  "renderDistance":2,
+  "scale":1.5
 }
-
+// settings["scale"]
 var debug={
   "grid":false,
   "blockoverlay":false,
@@ -61,9 +62,9 @@ var inventory={
 
 var holdingItem="hand";
 
-var friends={
+// var friends={
 
-}
+// }
 
 var owner="";
 
@@ -80,7 +81,7 @@ function resetData(){
   inventory["sword"]=1;
   inventory["shovel"]=1;
   inventory["wood"]=16;
-  friends={};
+  // friends={};
   
   loadhudInventory();
   
@@ -103,10 +104,10 @@ images={
 }
 
 function preload(){
-  images.chunks[0]=loadImage("assets-png/chunks/Grass/DarkerGrass.png");
-  images.chunks[1]=loadImage("assets-png/chunks/Grass/DarkGrass.png");
-  images.chunks[2]=loadImage("assets-png/chunks/Grass/LighterGrass.png");
-  images.chunks[3]=loadImage("assets-png/chunks/Grass/LightGrass.png");
+  images.chunks[0]=loadImage("assets/assets-png/chunks/Grass/DarkerGrass.png");
+  images.chunks[1]=loadImage("assets/assets-png/chunks/Grass/DarkGrass.png");
+  images.chunks[2]=loadImage("assets/assets-png/chunks/Grass/LighterGrass.png");
+  images.chunks[3]=loadImage("assets/assets-png/chunks/Grass/LightGrass.png");
 
-  images.blocks[0]=loadImage("assets-png/blocks/sand.png");
+  images.blocks[0]=loadImage("assets/assets-png/blocks/sand.png");
 }

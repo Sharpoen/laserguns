@@ -16,40 +16,40 @@ httpserver.listen(3000);
 var rooms = [];
 var usernames = [];
 
-var roomData={};
+var roomData = {};
 
-function roomDataPreset(owner){
-  this.data={
-    "owner":owner,
-    "blocks":{
+function roomDataPreset(owner) {
+  this.data = {
+    "owner": owner,
+    "blocks": {
 
     },
-    "chunks":{
-      "0:0":{
+    "chunks": {
+      "0:0": {
 
       },
-      "1:0":{
+      "1:0": {
 
       },
-      "1:1":{
+      "1:1": {
 
       },
-      "0:1":{
+      "0:1": {
 
       },
-      "-1:1":{
+      "-1:1": {
 
       },
-      "-1:0":{
+      "-1:0": {
 
       },
-      "-1:-1":{
+      "-1:-1": {
 
       },
-      "0:-1":{
-        
+      "0:-1": {
+
       },
-      "1:-1":{
+      "1:-1": {
 
       },
     }
@@ -58,50 +58,50 @@ function roomDataPreset(owner){
 }
 
 
-io.on('connection', function(socket){
+io.on('connection', function(socket) {
 
-  socket.on("joingame", function(room, username){
-    if (username != ""){
+  socket.on("joingame", function(room, username) {
+    if (username != "") {
       rooms[socket.id] = room;
       usernames[socket.id] = username;
 
       socket.leaveAll();
       socket.join(room);
 
-      if(!(room in roomData)){
-        roomData[rooms[socket.id]]=roomDataPreset(usernames[socket.id]);
+      if (!(room in roomData)) {
+        roomData[rooms[socket.id]] = roomDataPreset(usernames[socket.id]);
       }
 
       io.in(room).emit("crecieve", {
-        text:"Server : " + username + " has entered the chat.",
-        blocks:roomData[rooms[socket.id]]["blocks"],
-        owner:roomData[rooms[socket.id]]["owner"]
+        text: "Server : " + username + " has entered the chat.",
+        blocks: roomData[rooms[socket.id]]["blocks"],
+        owner: roomData[rooms[socket.id]]["owner"]
       });
       socket.emit("join", rooms[socket.id]);
     }
   })
 
-  socket.on("send", function(message){
-    io.in(rooms[socket.id]).emit("recieve", [usernames[socket.id],message]);
+  socket.on("send", function(message) {
+    io.in(rooms[socket.id]).emit("recieve", [usernames[socket.id], message]);
     // console.log(rooms[socket.id]);
     // console.log("Recieved. "+message.x);
   });
 
-  socket.on("block",function(block){
-    io.in(rooms[socket.id]).emit("block",block);
-      if(!(rooms[socket.id] in roomData)){
-        roomData[rooms[socket.id]]=roomDataPreset(usernames[socket.id]);
-      }
-    roomData[rooms[socket.id]]["blocks"][block.id]=block;
+  socket.on("block", function(block) {
+    io.in(rooms[socket.id]).emit("block", block);
+    if (!(rooms[socket.id] in roomData)) {
+      roomData[rooms[socket.id]] = roomDataPreset(usernames[socket.id]);
+    }
+    roomData[rooms[socket.id]]["blocks"][block.id] = block;
   });
 
-  socket.on("recieve", function(message){
+  socket.on("recieve", function(message) {
     socket.emit("recieve", message);
   });
-  socket.on("interact", function(message){
+  socket.on("interact", function(message) {
     io.in(rooms[socket.id]).emit("interact", message);
   });
-  socket.on("playerChat", function(message){
+  socket.on("playerChat", function(message) {
     io.in(rooms[socket.id]).emit("playerChat", message);
   });
 });
