@@ -87,8 +87,8 @@ function resetData(){
   
   health=100;
   
-  x=round(((Math.random()*-(15*10))+(Math.random()*(15*10)))/15)*15;
-  y=round(((Math.random()*-(15*10))+(Math.random()*(15*10)))/15)*15;
+  x=round((Math.random()*-(10))+(Math.random()*(10)));
+  y=round((Math.random()*-(10))+(Math.random()*(10)));
 
   linkPls={
     

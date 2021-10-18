@@ -1,5 +1,5 @@
 function loadhudInfo(){
-  document.getElementById("hudSection").innerHTML="[ Info ]<br><br>Update Info:<br>* Added blocks & and improved collisions<br>* Improved UI & added tools like a debug option window<br>Update Plans:<br>* Zombies & Slashings<br>* Friends & Foes<br>* Guns & Goblins<br><br>[ Credits ]<br>* Sharpoen - Main Director<br>* TheBushMaster - Dev";
+  document.getElementById("hudSection").innerHTML="[ Info ]<br><br>Update Info:<br>* Added blocks & and improved collisions<br>* Improved UI & added tools like a debug option window<br>Update Plans:<br>* Zombies & Slashings<br>* Friends & Foes<br>* Guns & Goblins<br>[!] SWORDS HAVE BEEN DISABLED DUE TO BUGS [!]<br><br>[ Credits ]<br>* Sharpoen - Main Director<br>* TheBushMaster - Dev";
 }
 function loadhudPlayers(){
   var playerString="[ Players ]<br>[ Owner ] "+owner+"<br>";
@@ -63,10 +63,6 @@ function loadhudFriends(){
 
   document.getElementById("hudSection").innerHTML=hudFriendsString;
 }
-
-
-
-
 
 
 

@@ -3,10 +3,11 @@ var usernameInput
 var chatIDInput;
 var chatInput;
 var messageIn;
-var chatRoom;
+var chatRoom="none";
 var dingSound;
 var messages = [];
 var delay = true;
+var room_temp;
 
 function onload(){
   socket = io();
@@ -14,15 +15,12 @@ function onload(){
   chatIDInput = document.getElementById("IDInput");
   chatIn = document.getElementById("chatIn");
   messageInput = document.getElementById("ComposedMessage");
-  chatRoom = document.getElementById("RoomID");
 
   socket.on("join", function(room){
-    chatRoom.innerHTML = "Server : " + room;
+    chatRoom = room;
   });
 
   socket.on("recieve", function(message){
-    // chat+=message[0];
-    // chat+=  ;
       if(!(message[0] in linkPls)){
         linkPls[message[0]]=pls.length;
         pls[linkPls[message[0]]]=message[1];
@@ -30,15 +28,11 @@ function onload(){
         pls[linkPls[message[0]]]=message[1];
       }
 
-      // chat+=message;
       lastJoin=message[1];
-      // lastJoin+="0";
 
     });
   socket.on("crecieve", function(message){
-      // chat+=message;
-      // lastJoin=message[1];
-      // lastJoin+="0";
+
       blocks = message["blocks"];
       owner = message["owner"];
 
@@ -49,8 +43,6 @@ function onload(){
   });
 
   socket.on("interact",function(data){
-    // alert(data["attack"]);
-    // alert(data["damage"]);
     if(data["attack"]!=undefined && data["damage"]!=undefined){
       if(data["attack"].includes(name)){
         updateHealth(data["damage"]);
@@ -59,8 +51,6 @@ function onload(){
   });
 
   socket.on("playerChat",function(data){
-    // alert(data["attack"]);
-    // alert(data["damage"]);
     chat+="[ "+data.name+" ] ~ "+data.chat+"<br>";
     document.getElementById("chatDiv").innerHTML=chat;
     document.getElementById("endOfChat").scrollIntoView();
