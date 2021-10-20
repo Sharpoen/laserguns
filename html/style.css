@@ -50,6 +50,9 @@ span, .red{
 }
 #hud{
   text-size-adjust: auto;
+
+  /* important */
+  visibility: visible;
 }
 
 #health, #hunger, .dataText{
@@ -75,5 +78,3 @@ span, .red{
   height: 100px;
   overflow-y: scroll;
 }
-
-/* #nestCanvas { border: 5px solid #303030; } */
