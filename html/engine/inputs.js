@@ -5,13 +5,17 @@ var inputs={
   "left":false,
   "right":false,
   "clickL":false,
-  "clickR":false
+  "clickR":false,
+  "zoomIn":false,
+  "zoomOut":false,
 }
 var inputLinks=[]
 inputLinks[38]="up";inputLinks[87]="up";
 inputLinks[40]="down";inputLinks[83]="down";
 inputLinks[37]="left";inputLinks[65]="left";
 inputLinks[39]="right";inputLinks[68]="right";
+inputLinks[79]="zoomIn";inputLinks[73]="zoomOut";
+var onPressers=[];
 
 window.addEventListener("mousedown", function(){
     if(event.buttons==1){
@@ -29,23 +33,4 @@ window.onkeydown = function(){
 }
 window.onkeyup = function(){
     inputs[inputLinks[event.keyCode]]=false;
-}
-
-function moveU(){
-  inputs["up"]=!inputs["up"];
-}
-function moveD(){
-  inputs["down"]=!inputs["down"];
-}
-function moveR(){
-  inputs["right"]=!inputs["right"];
-}
-function moveL(){
-  inputs["left"]=!inputs["left"];
-}
-function moveS(){
-  inputs["up"]=false;
-  inputs["down"]=false;
-  inputs["left"]=false;
-  inputs["right"]=false;
 }

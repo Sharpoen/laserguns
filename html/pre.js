@@ -9,8 +9,10 @@ var y=0;
 var pcc=[cx,cy];
 var cx=0;
 var cy=0;
-// shall we play a game?
-//now i just have to add in the blocks with the chunks
+
+
+
+
 var speed=0.3;
 
 var linkPls={
@@ -19,12 +21,7 @@ var linkPls={
 var pls=[];
 var blocks=[];
 
-//scale setting might be used later when i implement the ui
-var settings={
-  "renderDistance":1,
-  "scale":1.5
-}
-// settings["scale"]
+
 var debug={
   "grid":false,
   "blockoverlay":false,
@@ -33,11 +30,11 @@ var debug={
 }
 
 var inventory={
-  "hand":1,
-  "sand":64,
-  "sword":1,
-  "shovel":1,
-  "wood":16,
+  "hand":{amount:1},
+  "sand":{amount:64,image:"blocks-sand"},
+  "sword":{amount:1},
+  "shovel":{amount:1},
+  "wood":{amount:16},
 };
 
 var holdingItem="hand";
@@ -90,8 +87,10 @@ function preload(){
   images["tiles-grass-2"]=loadImage("assets/assets-png/tiles/Grass/LighterGrass.png");
   images["tiles-grass-3"]=loadImage("assets/assets-png/tiles/Grass/LightGrass.png");
 
-  images["blocks-sand"]=loadImage("assets/assets-png/blocks/sand.png");
   images["blocks-air"]=loadImage("assets/assets-png/blocks/air.png");
+  images["blocks-sand"]=loadImage("assets/assets-png/blocks/sand.png");
+  images["blocks-grass"]=loadImage("assets/assets-png/blocks/grass.png");
+  
 }
 
 /* https://betterprogramming.pub/how-to-obtain-random-numbers-within-a-range-using-javascript-83d3f9b0cd51 */

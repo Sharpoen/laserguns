@@ -31,17 +31,41 @@ setInterval(function(){
 
 },2000);
 
+
 var gamescreen = new outV1();
 var gameinput = new inV1(gamescreen.getScale());
 var gamephysics = new physicsV1(gamescreen.getScale());
 var gameworld = new worldV1();
+var gui = new guiV1();
 
 gameworld.setChunk("0:0",gameworld.createChunk());
 
+var chunksToRender = gameworld.loadChunks(gui.settings["renderDistance"]);
+
+
 setInterval(function(){
+  chunksToRender = gameworld.loadChunks(gui.settings["renderDistance"]);
   gameinput.movement();
+  if(inputs["zoomIn"]){
+    if(gamescreen.getScale()<50){
+      gamescreen.setScale(gamescreen.getScale()+1);
+      gameinput.setScale(gamescreen.getScale()+1);
+    }
+  }
+  if(inputs["zoomOut"]){
+    if(gamescreen.getScale()>30){
+      gamescreen.setScale(gamescreen.getScale()-1);
+      gameinput.setScale(gamescreen.getScale()-1);
+    }
+  }
   Send();
 },50);
+
+window.addEventListener("keydown",function(event){
+  if(event.keyCode==69){
+    gui.pagesOpen["inventory"]=!gui.pagesOpen["inventory"];
+  }
+})
 
 function draw(){
   var mouseOver=[];
@@ -62,7 +86,6 @@ function draw(){
 
   //new stuff. yay!
 
-  var chunksToRender = gameworld.loadChunks(settings["renderDistance"]);
 
   gamescreen.render_chunks(gameworld.getChunks(chunksToRender));
 
@@ -74,7 +97,16 @@ function draw(){
 
   gamescreen.old_render_players();
 
-  gameinput.old_interactions();
+
+  if(gui.pagesOpen["inventory"]||gui.pagesOpen["settings"]){
+    gui.rendermaster();
+    if(gui.pagesOpen["inventory"]){
+      gui.renderinventory();
+    }
+
+  }else{
+    gameinput.old_interactions();
+  }
 
 //
   

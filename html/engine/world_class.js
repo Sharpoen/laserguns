@@ -40,10 +40,6 @@ class worldV1{
     return newChunk;
 
   }
-
-  generateChunk(seed){
-    
-  }
   
   setChunk(chunkPos,chunk){
     this.#chunks[chunkPos]=chunk;

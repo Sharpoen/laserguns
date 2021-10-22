@@ -1,5 +1,5 @@
 class outV1{
-  #game_scale = 20;
+  #game_scale = 30;
   #chunksImages={};
   #openChunks={};
   
@@ -84,10 +84,6 @@ class outV1{
     }
   }
 
-  set_img(img,chunk_name,at){
-    
-  }
-
   render_chunk(chunk_data,atx,aty){
     for(let i=0;i<256;i++){
       image(images[chunk_data[i].tile.image],-x*this.#game_scale+width/2-this.#game_scale/2+atx*this.#game_scale+floor(i/16)*this.#game_scale,-y*this.#game_scale+height/2-this.#game_scale/2+aty*this.#game_scale+floor(i%16)*this.#game_scale,this.#game_scale,this.#game_scale);
@@ -98,32 +94,10 @@ class outV1{
       var atx=n.split(":")[0]*16;
       var aty=n.split(":")[1]*16;
       for(let i=0;i<256;i++){
-        image(images[chunk_data[n][i].tile.image],-x*this.#game_scale+width/2-this.#game_scale/2+atx*this.#game_scale+floor(i/16)*this.#game_scale,-y*this.#game_scale+height/2-this.#game_scale/2+aty*this.#game_scale+floor(i%16)*this.#game_scale,this.#game_scale,this.#game_scale);
+        image(images[chunk_data[n][i].tile.image],-x*this.#game_scale+width/2-this.#game_scale/2+atx*this.#game_scale+floor(i%16)*this.#game_scale,-y*this.#game_scale+height/2-this.#game_scale/2+aty*this.#game_scale+floor(i/16)*this.#game_scale,this.#game_scale,this.#game_scale);
       }
     }
   }
-
-  render_chunk_imgs(){
-    
-  }
-
-  temp_render_chunks_img(){
-    if(cx!=pcc[0]||cy!=pcc[1]){
-      renderChunks = loadChunks(settings["renderDistance"]);
-    }
-    var renderChunksU=renderChunks;
-    for(let i=0;i<renderChunksU.length;i++){
-
-      if(
-        chunks[renderChunksU[i][0]+":"+renderChunksU[i][1]]==undefined
-      ){
-        chunks[renderChunksU[i][0]+":"+renderChunksU[i][1]]=chunkPreset(images.chunks[Math.floor(Math.random() * images.chunks.length)]);
-      }
-
-      image(chunks[renderChunksU[i][0]+":"+renderChunksU[i][1]].image,-x*this.#game_scale+width/2-this.#game_scale/2+renderChunksU[i][0]*this.#game_scale*16,-y*this.#game_scale+height/2-this.#game_scale/2+renderChunksU[i][1]*this.#game_scale*16,this.#game_scale*16,this.#game_scale*16);
-    }
-  }
-
   
 }
 

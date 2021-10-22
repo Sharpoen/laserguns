@@ -12,6 +12,7 @@
 
       <script src = "engine/inputs.js"></script>
       
+      <script src = "engine/gui_class.js"></script>
       <script src = "engine/physics_class.js"></script>
       <script src = "engine/world_class.js"></script>
       <script src = "engine/render_class.js"></script>
@@ -23,8 +24,6 @@
 
       <script src = "game.js"></script>
       <script src= "socket.io/socket.io.js"></script>
-
-      <script src = "tempGameScaleSlider.js"></script>
 
     </head>
   <body onload = "onload()" oncontextmenu="return false;">
@@ -38,12 +37,7 @@
         <input id = "ConnectButton" class = "Button" type = "submit" value = "Connect" onclick = "Connect()">
       </div>
     </div>
-
-    <div>
-      Set Scale - [
-      <input type="range" min="5" max="100" value="20" class="slider" id="myRange">
-      ]
-    </div>
+<!-- bye -->
 
     <fieldset id = "Gamefieldset">
       <legend id = "Gamelegend"></legend>

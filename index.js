@@ -21,38 +21,8 @@ var roomData = {};
 function roomDataPreset(owner) {
   this.data = {
     "owner": owner,
-    "blocks": {
-
-    },
-    "chunks": {
-      "0:0": {
-
-      },
-      "1:0": {
-
-      },
-      "1:1": {
-
-      },
-      "0:1": {
-
-      },
-      "-1:1": {
-
-      },
-      "-1:0": {
-
-      },
-      "-1:-1": {
-
-      },
-      "0:-1": {
-
-      },
-      "1:-1": {
-
-      },
-    }
+    "blocks": {},
+    "chunks": {}
   }
   return this.data;
 }
