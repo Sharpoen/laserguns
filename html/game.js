@@ -34,7 +34,6 @@ setInterval(function(){
 
 var gamescreen = new outV1();
 var gameinput = new inV1(gamescreen.getScale());
-var gamephysics = new physicsV1(gamescreen.getScale());
 var gameworld = new worldV1();
 var gui = new guiV1();
 

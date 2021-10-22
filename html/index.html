@@ -13,7 +13,6 @@
       <script src = "engine/inputs.js"></script>
       
       <script src = "engine/gui_class.js"></script>
-      <script src = "engine/physics_class.js"></script>
       <script src = "engine/world_class.js"></script>
       <script src = "engine/render_class.js"></script>
       <script src = "engine/input_class.js"></script>
@@ -42,12 +41,12 @@
     <fieldset id = "Gamefieldset">
       <legend id = "Gamelegend"></legend>
     <div id="nestCanvas"></div>
-    <div id = "Gamewindow">Game - Still Loading | Make sure to input Gamertag and Server.</div>
+    <div id = "Gamewindow"></div>
     </fieldset>
     <div id="hud">
       <fieldset>
-        Health:<span id="health">[ 100 ]</span><br>
-        Hunger:<span id="hunger">[ 100 ]</span><br>
+        <span id="health">[ 100 ]</span><br>
+        <span id="hunger">[ 100 ]</span><br>
       </fieldset>
       <fieldset>
         <span onclick="loadhudInventory();" class="hudbutton">[ Inventory ]</span> | <span onclick="loadhudPlayers();" class="hudbutton">[ Players ]</span> | <span onclick="loadhudInfo();" class="hudbutton">[ Info ]</span> | <span onclick="loadhudDebug();" class="hudbutton">[ Debug ]</span> | <span onclick="loadhudFriends();" class="hudbutton">[ Friends ]</span>

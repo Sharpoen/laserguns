@@ -30,11 +30,11 @@ var debug={
 }
 
 var inventory={
-  "hand":{amount:1},
+  "hand":{amount:1,image:"items-hand"},
   "sand":{amount:64,image:"blocks-sand"},
-  "sword":{amount:1},
-  "shovel":{amount:1},
-  "wood":{amount:16},
+  "sword":{amount:1,image:"items-protosword"},
+  "shovel":{amount:1,image:"items-protoshovel"},
+  "wood":{amount:16,image:"items-wood"},
 };
 
 var holdingItem="hand";
@@ -53,11 +53,11 @@ function resetData(){
   holdingItem="hand";
   // name="";
 
-  inventory["hand"]=1;
-  inventory["sand"]=64;
-  inventory["sword"]=1;
-  inventory["shovel"]=1;
-  inventory["wood"]=16;
+  inventory["hand"].amount=1;
+  inventory["sand"].amount=64;
+  inventory["sword"].amount=1;
+  inventory["shovel"].amount=1;
+  inventory["wood"].amount=16;
   // friends={};
   
   loadhudInventory();
@@ -90,7 +90,15 @@ function preload(){
   images["blocks-air"]=loadImage("assets/assets-png/blocks/air.png");
   images["blocks-sand"]=loadImage("assets/assets-png/blocks/sand.png");
   images["blocks-grass"]=loadImage("assets/assets-png/blocks/grass.png");
-  
+
+  images["items-protosword"]=loadImage("assets/assets-png/items/swords/sword1.png");
+
+  images["items-protoshovel"]=loadImage("assets/assets-png/items/shovels/shovel1.png");
+
+  images["items-hand"]=loadImage("assets/assets-png/items/handart1.png");
+
+  images["items-wood"]=loadImage("assets/assets-png/items/wooditem.png");
+
 }
 
 /* https://betterprogramming.pub/how-to-obtain-random-numbers-within-a-range-using-javascript-83d3f9b0cd51 */

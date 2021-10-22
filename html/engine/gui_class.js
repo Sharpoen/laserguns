@@ -42,6 +42,9 @@ class guiV1{
       var placeAtY=Math.floor(i/(((width-width/8)-(width-width/8)%50)/50));
 
       if(this.box(placeAtX*50+width/16+15,height/16+50+placeAtY*70,45,45)){
+        if(inputs["clickL"]){
+          holdingItem=n;
+        }
         fill(150,255);
       }
       rect(width/16+15+placeAtX*50,height/16+50+placeAtY*70,45,45);

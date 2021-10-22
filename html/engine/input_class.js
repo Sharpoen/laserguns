@@ -57,9 +57,9 @@ class inV1{
               blocks[round((mouseX-width/2)/this.#game_scale+x)+":"+round((mouseY-height/2)/this.#game_scale+y)]=newBlock;
             }else{
               if(newBlock.type in inventory){
-                inventory[newBlock.type]+=1;
+                inventory[newBlock.type]["amount"]+=1;
               }else{
-                inventory[newBlock.type]=1;
+                inventory[newBlock.type]["amount"]=1;
               }
               loadhudInventory();
               newBlock={x:round((mouseX-width/2)/this.#game_scale+x),y:round((mouseY-height/2)/this.#game_scale+y),id:round((mouseX-width/2)/this.#game_scale+x)+":"+round((mouseY-height/2)/this.#game_scale+y),type:"air",hp:10,maxhp:10,solid:false};
