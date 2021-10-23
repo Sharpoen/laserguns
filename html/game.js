@@ -44,7 +44,10 @@ var chunksToRender = gameworld.loadChunks(gui.settings["renderDistance"]);
 
 setInterval(function(){
   chunksToRender = gameworld.loadChunks(gui.settings["renderDistance"]);
+  
   gameinput.movement();
+  gamescreen.setGoing(inputs["up"]);
+
   if(inputs["zoomIn"]){
     if(gamescreen.getScale()<50){
       gamescreen.setScale(gamescreen.getScale()+1);
@@ -64,7 +67,14 @@ window.addEventListener("keydown",function(event){
   if(event.keyCode==69){
     gui.pagesOpen["inventory"]=!gui.pagesOpen["inventory"];
   }
-})
+});
+
+setInterval(function(){
+  gamescreen.playerAnimFrame+=1;
+  if(gamescreen.playerAnimFrame>1){
+    gamescreen.playerAnimFrame=0;
+  }
+},500);
 
 function draw(){
   var mouseOver=[];
@@ -72,13 +82,6 @@ function draw(){
   background(50);
 
   document.getElementById("fps").innerHTML="FPS: [ "+round(frameRate())+" ]<br>x: [ "+round(x)+" ]"+"<br>y: [ "+round(y)+" ]<br>cx: [ "+cx+" ]"+"<br>cy: [ "+cy+" ]";
-
-  
-  // gamescreen.temp_render_chunks_img();
-
-  if(debug.grid){
-    gamescreen.render_grid();
-  }
 
 //Player Settup
 
@@ -90,21 +93,29 @@ function draw(){
 
   //end of new stuff
 
-  gamescreen.old_render_player();
-
   gamescreen.old_render_blocks();
 
   gamescreen.old_render_players();
 
+  gamescreen.old_render_player();
+
+  gamescreen.render_player(inputs["up"]||inputs["down"]||inputs["left"]||inputs["right"]);
+
+  if(debug.grid){
+    gamescreen.render_grid();
+  }
+
 
   if(gui.pagesOpen["inventory"]||gui.pagesOpen["settings"]){
-    gui.rendermaster();
+    gui.render_master();
     if(gui.pagesOpen["inventory"]){
-      gui.renderinventory();
+      gui.render_inventory();
     }
 
   }else{
     gameinput.old_interactions();
+
+    gui.render_hotbar();
   }
 
 //

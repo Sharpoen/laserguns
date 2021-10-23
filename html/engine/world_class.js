@@ -11,17 +11,17 @@ class worldV1{
   createBlock(){
     var newBlock={
       block:{
-        solid:false,
-        blockType:"air",
-        transparent:true,
-        invisible:true,
-        image:"blocks-air",
+        solid:true,
+        blockType:"sand",
+        transparent:false,
+        invisible:false,
+        image:"nblocks-sand",
         hp:1,
         maxhp:1,
       },
       tile:{
         solid:true,
-        tileType:true,
+        tileType:"grass",
         image:"tiles-grass-"+randomNumber(0,3).toString(),
       }
     };

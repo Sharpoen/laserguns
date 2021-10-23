@@ -28,13 +28,16 @@ var debug={
   "testDebugItem2":false,
   "testDebugItem3":false,
 }
-
+/*
+p:primary
+s:secondary
+*/
 var inventory={
-  "hand":{amount:1,image:"items-hand"},
-  "sand":{amount:64,image:"blocks-sand"},
-  "sword":{amount:1,image:"items-protosword"},
-  "shovel":{amount:1,image:"items-protoshovel"},
-  "wood":{amount:16,image:"items-wood"},
+  "hand":{amount:1,image:"items-hand",p:{},s:{}},
+  "sand":{amount:64,image:"blocks-sand",p:{},s:{}},
+  "sword":{amount:1,image:"items-protosword",p:{},s:{}},
+  "shovel":{amount:1,image:"items-protoshovel",p:{},s:{}},
+  "wood":{amount:16,image:"items-wood",p:{},s:{}},
 };
 
 var holdingItem="hand";
@@ -91,6 +94,8 @@ function preload(){
   images["blocks-sand"]=loadImage("assets/assets-png/blocks/sand.png");
   images["blocks-grass"]=loadImage("assets/assets-png/blocks/grass.png");
 
+  images["nblocks-sand"]=loadImage("assets/assets-png/newBlocks/sand.png");
+
   images["items-protosword"]=loadImage("assets/assets-png/items/swords/sword1.png");
 
   images["items-protoshovel"]=loadImage("assets/assets-png/items/shovels/shovel1.png");
@@ -98,6 +103,9 @@ function preload(){
   images["items-hand"]=loadImage("assets/assets-png/items/handart1.png");
 
   images["items-wood"]=loadImage("assets/assets-png/items/wooditem.png");
+
+  images["player-lite"]=loadImage("assets/assets-png/man.png");
+  images["player-full"]=loadImage("assets/assets-png/Man.png");
 
 }
 

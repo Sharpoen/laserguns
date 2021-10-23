@@ -2,7 +2,10 @@ class outV1{
   #game_scale = 30;
   #chunksImages={};
   #openChunks={};
+  playerAnimFrame=0;
   
+  #goingUoD=1;
+
   constructor(){
     this.old_mouseOver=[];
   }
@@ -14,8 +17,11 @@ class outV1{
     return this.#game_scale;
   }
 
-  test(){
-    alert("!");
+  setGoing(up){
+    this.#goingUoD=2;
+    if(up){
+      this.#goingUoD=1;
+    }
   }
   render_grid(){
     var adjustWidth=(width/2)%this.#game_scale;
@@ -67,6 +73,29 @@ class outV1{
     rect(width/2-this.#game_scale/2,height/2-this.#game_scale/2, this.#game_scale, this.#game_scale);
   }
 
+  render_player(walking){
+    var moving = 0;
+    if(walking){
+      moving=this.#goingUoD;
+    }
+
+    if(moving==1){
+      if(this.playerAnimFrame==0){
+        image(images["player-full"],width/2-(this.#game_scale*1.5)/2,height/2-(this.#game_scale*1.5)/1.5, (this.#game_scale*1.5), (this.#game_scale*1.5),0,32,16,16);
+      }else{
+        image(images["player-full"],width/2-(this.#game_scale*1.5)/2,height/2-(this.#game_scale*1.5)/1.5, (this.#game_scale*1.5), (this.#game_scale*1.5),16,32,16,16);
+      }
+    }else if(moving == 2){
+      if(this.playerAnimFrame==0){
+        image(images["player-full"],width/2-(this.#game_scale*1.5)/2,height/2-(this.#game_scale*1.5)/1.5, (this.#game_scale*1.5), (this.#game_scale*1.5),16,0,16,16);
+      }else{
+        image(images["player-full"],width/2-(this.#game_scale*1.5)/2,height/2-(this.#game_scale*1.5)/1.5, (this.#game_scale*1.5), (this.#game_scale*1.5),0,16,16,16);
+      }
+    }else{
+      image(images["player-full"],width/2-(this.#game_scale*1.5)/2,height/2-(this.#game_scale*1.5)/1.5, (this.#game_scale*1.5), (this.#game_scale*1.5),0,0,16,16);
+    }
+  }
+
   old_render_players(){
     var plsU=pls;
     fill(255,0,0);
@@ -86,16 +115,35 @@ class outV1{
 
   render_chunk(chunk_data,atx,aty){
     for(let i=0;i<256;i++){
-      image(images[chunk_data[i].tile.image],-x*this.#game_scale+width/2-this.#game_scale/2+atx*this.#game_scale+floor(i/16)*this.#game_scale,-y*this.#game_scale+height/2-this.#game_scale/2+aty*this.#game_scale+floor(i%16)*this.#game_scale,this.#game_scale,this.#game_scale);
+      if(chunk_data[i].block.transparent){
+        image(images[chunk_data[i].tile.image],-x*this.#game_scale+width/2-this.#game_scale/2+atx*this.#game_scale+floor(i%16)*this.#game_scale,-y*this.#game_scale+height/2-this.#game_scale/2+aty*this.#game_scale+floor(i/16)*this.#game_scale,this.#game_scale,this.#game_scale);
+      }
+      if(!chunk_data[i].block.invisible){
+        image(images[chunk_data[i].block.image],-x*this.#game_scale+width/2-this.#game_scale/2+atx*this.#game_scale+floor(i%16)*this.#game_scale,-y*this.#game_scale+height/2-this.#game_scale/2+aty*this.#game_scale+floor(i/16)*this.#game_scale,this.#game_scale,this.#game_scale*1.25);
+      }
     }
   }
   render_chunks(chunk_data){
+    var vertOrder=[];
     for(var n in chunk_data){
+      if(vertOrder[n.split(":")[1]]==undefined){
+        vertOrder[n.split(":")[1]]=[];
+      }
+      vertOrder[n.split(":")[1]].push(n);
+    }
+    var vert_order=[];
+    for(let a in vertOrder){
+      for(let b in vertOrder[a]){
+        vert_order.push(vertOrder[a][b]);
+      }
+    }
+    for(let i=vert_order.length-1;i>=0;i--){
+      
+      var n=vert_order[i];
       var atx=n.split(":")[0]*16;
       var aty=n.split(":")[1]*16;
-      for(let i=0;i<256;i++){
-        image(images[chunk_data[n][i].tile.image],-x*this.#game_scale+width/2-this.#game_scale/2+atx*this.#game_scale+floor(i%16)*this.#game_scale,-y*this.#game_scale+height/2-this.#game_scale/2+aty*this.#game_scale+floor(i/16)*this.#game_scale,this.#game_scale,this.#game_scale);
-      }
+
+      this.render_chunk(chunk_data[n],atx,aty);
     }
   }
   

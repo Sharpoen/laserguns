@@ -1,5 +1,21 @@
 class guiV1{
 
+  hotbarItems={
+    0:{
+        item:"hand",
+        image:"items-hand"
+      },
+    1:{
+        item:"sand",
+        image:"blocks-sand"
+      },
+    2:{
+        item:"shovel",
+        image:"items-protoshovel"
+      },
+  };
+
+
   pagesOpen={
     "settings":false,
     "inventory":true,
@@ -14,7 +30,7 @@ class guiV1{
 
   }
 
-  rendermaster(){
+  render_master(){
     fill(0,175);
     rect(width/16,height/16,width-width/8,height-height/8);
   }
@@ -29,7 +45,7 @@ class guiV1{
     }
   }
 
-  renderinventory(){
+  render_inventory(){
     fill(255,255);
     textSize(20);
     text("inventory",width/16+20,height/16+20);
@@ -58,10 +74,40 @@ class guiV1{
     }
   }
 
-  rendersettings(){
+  render_settings(){
     fill(255,255);
     textSize(20);
     text("settings",width/16+20,height/16+20);
+  }
+
+  render_hotbar(){
+    fill(0,175);
+    rect(width/16,height-height/8,width/16*14,height/8);
+
+    var hotBarButtonScale=(height/8)*.9;
+
+    for(let i=0;i<9;i++){
+      
+      fill(100,255);
+
+      if(this.box(width/16+hotBarButtonScale/10+i*hotBarButtonScale,height-height/8+hotBarButtonScale/10,hotBarButtonScale/10*9,hotBarButtonScale/10*9)){
+        fill(150,255);
+        if(inputs["clickL"]&&this.hotbarItems[i]!=undefined){
+          holdingItem=this.hotbarItems[i].item;
+        }
+
+      }
+
+      if(this.hotbarItems[i]!=undefined&&holdingItem==this.hotbarItems[i].item){
+        fill(150,200,200);
+      }
+
+      rect(width/16+hotBarButtonScale/10+i*hotBarButtonScale,height-height/8+hotBarButtonScale/10,hotBarButtonScale/10*9,hotBarButtonScale/10*9);
+      if(this.hotbarItems[i]!=undefined){
+        image(images[this.hotbarItems[i].image],width/16+hotBarButtonScale/10+i*hotBarButtonScale+hotBarButtonScale/15*9/4,height-height/8+hotBarButtonScale/10+hotBarButtonScale/15*9/4,hotBarButtonScale/15*9,hotBarButtonScale/15*9);
+      }
+    }
+
   }
 
 }
