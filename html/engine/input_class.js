@@ -30,27 +30,44 @@ class inV1{
     }
   }
 
-  use_item(){
+  use_item(world){
+    stroke(0,0);
     if(dist(mouseX,mouseY,width/2,height/2)<5*this.#game_scale){
-      fill(25,0,0,75);
+      fill(0,100,0,75);
       rect(round((mouseX-width/2)/this.#game_scale+x)*this.#game_scale+width/2-x*this.#game_scale-(this.#game_scale*1.3)/2,round((mouseY-height/2)/this.#game_scale+y)*this.#game_scale+height/2-y*this.#game_scale-(this.#game_scale*1.3)/2,this.#game_scale*1.3,this.#game_scale*1.3);
-
-      let blockx=0;
-      let blocky=0;
+      image(images["cursor"],round((mouseX-width/2)/this.#game_scale+x)*this.#game_scale+width/2-x*this.#game_scale-(this.#game_scale*1.3)/2,round((mouseY-height/2)/this.#game_scale+y)*this.#game_scale+height/2-y*this.#game_scale-(this.#game_scale*1.3)/2,this.#game_scale*1.3,this.#game_scale*1.3);
       
+      let mouseat=round((mouseX-width/2)/this.#game_scale+x)+":"+round((mouseY-height/2)/this.#game_scale+y);
+      let blockat=[]; 
+
+      blockat[0]=Math.floor(mouseat.split(":")[0]/16)
+      blockat[1]=Math.floor(mouseat.split(":")[1]/16)
+
+      blockat[2]=Math.floor(mouseat.split(":")[0])-blockat[0]*16;
+      blockat[3]=Math.floor(mouseat.split(":")[1])-blockat[1]*16;
+      blockat[5]=blockat[2]+blockat[3]*16;
+
+      if(inputs["query"]){
+        console.log(blockat);
+      }
+
       if(inputs["clickL"]){
-        let action = inventory[holdingItem];
+        let action = inventory[holdingItem].p;
+        if(action.placeblock!=undefined){
+          world.placeblock(action.placeblock.block,blockat);
+        }
       }
       if(inputs["clickR"]){
-        let action = inventory[holdingItem];
+        let action = inventory[holdingItem].s;
       }
 
     }
   }
   old_interactions(){
     if(dist(mouseX,mouseY,width/2,height/2)<5*this.#game_scale){
-      fill(25,0,0,75);
+      fill(0,100,0,75);
       rect(round((mouseX-width/2)/this.#game_scale+x)*this.#game_scale+width/2-x*this.#game_scale-(this.#game_scale*1.3)/2,round((mouseY-height/2)/this.#game_scale+y)*this.#game_scale+height/2-y*this.#game_scale-(this.#game_scale*1.3)/2,this.#game_scale*1.3,this.#game_scale*1.3);
+      image(images["cursor"],round((mouseX-width/2)/this.#game_scale+x)*this.#game_scale+width/2-x*this.#game_scale-(this.#game_scale*1.3)/2,round((mouseY-height/2)/this.#game_scale+y)*this.#game_scale+height/2-y*this.#game_scale-(this.#game_scale*1.3)/2,this.#game_scale*1.3,this.#game_scale*1.3);
       if(inputs["clickL"]){
         if(holdingItem=="sand"){
           if(inventory[holdingItem]["amount"]>0){
@@ -87,7 +104,7 @@ class inV1{
           }
         }
         if(holdingItem=="hand"){
-          if(round((mouseX-width/2)/this.#game_scale+x)*this.#game_scale+":"+round((mouseY-height/2)/this.#game_scale+y)*this.#game_scale in blocks){
+          if(round((mouseX-width/2)/this.#game_scale+x)+":"+round((mouseY-height/2)/this.#game_scale+y) in blocks){
             var newBlock=blocks[round((mouseX-width/2)/this.#game_scale+x)+":"+round((mouseY-height/2)/this.#game_scale+y)];
 
             newBlock.hp-=1;

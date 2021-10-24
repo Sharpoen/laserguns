@@ -113,13 +113,13 @@ class outV1{
     }
   }
 
-  render_chunk(chunk_data,atx,aty){
+  render_chunk(chunk_data,atx,aty,qbt){
     for(let i=0;i<256;i++){
-      if(chunk_data[i].block.transparent){
+      if(chunk_data[i].block.transparent&&qbt=="tiles"){
         image(images[chunk_data[i].tile.image],-x*this.#game_scale+width/2-this.#game_scale/2+atx*this.#game_scale+floor(i%16)*this.#game_scale,-y*this.#game_scale+height/2-this.#game_scale/2+aty*this.#game_scale+floor(i/16)*this.#game_scale,this.#game_scale,this.#game_scale);
       }
-      if(!chunk_data[i].block.invisible){
-        image(images[chunk_data[i].block.image],-x*this.#game_scale+width/2-this.#game_scale/2+atx*this.#game_scale+floor(i%16)*this.#game_scale,-y*this.#game_scale+height/2-this.#game_scale/2+aty*this.#game_scale+floor(i/16)*this.#game_scale,this.#game_scale,this.#game_scale*1.25);
+      if(!chunk_data[i].block.invisible&&qbt=="blocks"){
+        image(images[chunk_data[i].block.image],-x*this.#game_scale+width/2-this.#game_scale/2+atx*this.#game_scale+floor(i%16)*this.#game_scale,-y*this.#game_scale+height/2-this.#game_scale/2+aty*this.#game_scale+floor(i/16)*this.#game_scale-this.#game_scale/4,this.#game_scale,this.#game_scale*1.25);
       }
     }
   }
@@ -131,19 +131,43 @@ class outV1{
       }
       vertOrder[n.split(":")[1]].push(n);
     }
+
+    var rev_vert_order=[];
     var vert_order=[];
+    
     for(let a in vertOrder){
       for(let b in vertOrder[a]){
-        vert_order.push(vertOrder[a][b]);
+        if(vertOrder[a][b].split(":")[1]<0){
+          rev_vert_order.push(vertOrder[a][b]);
+        }else{
+          vert_order.push(vertOrder[a][b]);
+        }
       }
     }
-    for(let i=vert_order.length-1;i>=0;i--){
-      
+    var revd_rev_vert_order=[];
+    for(let i=rev_vert_order.length-1;i>=0;i--){
+      revd_rev_vert_order.push(rev_vert_order[i]);
+    }
+    for(let i=0;i<vert_order.length;i++){
+      revd_rev_vert_order.push(vert_order[i]);
+    }
+
+    vert_order=revd_rev_vert_order;
+    for(let i in vert_order){
       var n=vert_order[i];
       var atx=n.split(":")[0]*16;
       var aty=n.split(":")[1]*16;
 
-      this.render_chunk(chunk_data[n],atx,aty);
+      // this.render_chunk(chunk_data[n],atx,aty);
+      this.render_chunk(chunk_data[n],atx,aty,"tiles");
+    }
+    for(let i in vert_order){
+      var n=vert_order[i];
+      var atx=n.split(":")[0]*16;
+      var aty=n.split(":")[1]*16;
+
+      // this.render_chunk(chunk_data[n],atx,aty);
+      this.render_chunk(chunk_data[n],atx,aty,"blocks");
     }
   }
   

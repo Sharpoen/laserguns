@@ -13,7 +13,7 @@ var cy=0;
 
 
 
-var speed=0.3;
+var speed=0.2;
 
 var linkPls={
   
@@ -24,6 +24,7 @@ var blocks=[];
 
 var debug={
   "grid":false,
+  "hitboxes":false,
   "blockoverlay":false,
   "testDebugItem2":false,
   "testDebugItem3":false,
@@ -34,7 +35,16 @@ s:secondary
 */
 var inventory={
   "hand":{amount:1,image:"items-hand",p:{},s:{}},
-  "sand":{amount:64,image:"blocks-sand",p:{},s:{}},
+  "sand":{amount:64,image:"blocks-sand",p:{
+    placeblock:{
+      block:{
+        type:"sand",
+        solid:false,
+        transparent:false,
+        image:"nblocks-sand",
+      }
+    }
+  },s:{}},
   "sword":{amount:1,image:"items-protosword",p:{},s:{}},
   "shovel":{amount:1,image:"items-protoshovel",p:{},s:{}},
   "wood":{amount:16,image:"items-wood",p:{},s:{}},
@@ -106,6 +116,8 @@ function preload(){
 
   images["player-lite"]=loadImage("assets/assets-png/man.png");
   images["player-full"]=loadImage("assets/assets-png/Man.png");
+
+  images["cursor"]=loadImage("assets/assets-png/uno.png");
 
 }
 

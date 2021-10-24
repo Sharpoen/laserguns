@@ -12,10 +12,10 @@ class worldV1{
     var newBlock={
       block:{
         solid:true,
-        blockType:"sand",
-        transparent:false,
-        invisible:false,
-        image:"nblocks-sand",
+        blockType:"air",
+        transparent:true,
+        invisible:true,
+        image:"blocks-air",
         hp:1,
         maxhp:1,
       },
@@ -50,9 +50,13 @@ class worldV1{
     if(this.#chunks[chunkPos]==undefined){
       this.setChunk(chunkPos, this.createChunk());
     }
-
+    
     return this.#chunks[chunkPos];
 
+  }
+
+  placeblock(block,placeat){
+    this.#chunks[placeat[0]+":"+placeat[1]][placeat[5]].block=block;
   }
 
   loadChunks(rDist){
@@ -63,6 +67,19 @@ class worldV1{
       }
     }
     return openChunks;
+  }
+
+  pointInChunk(fx,fy){
+    return [floor(fx/16),floor(fy/16)];
+  }
+  pointAtBlock(fx,fy){
+    let inchunk=this.pointInChunk(fx,fy);
+
+    let pointat=inchunk[0]+":"+inchunk[1]+":";
+
+
+
+    return pointat;
   }
 
   getChunks(chunks){

@@ -97,7 +97,9 @@ function draw(){
 
   gamescreen.old_render_players();
 
-  gamescreen.old_render_player();
+  if(debug.hitboxes){
+    gamescreen.old_render_player();
+  }
 
   gamescreen.render_player(inputs["up"]||inputs["down"]||inputs["left"]||inputs["right"]);
 
@@ -113,7 +115,7 @@ function draw(){
     }
 
   }else{
-    gameinput.old_interactions();
+    gameinput.use_item(gameworld);
 
     gui.render_hotbar();
   }
