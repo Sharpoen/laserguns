@@ -56,7 +56,6 @@ class worldV1{
   }
 
   placeblock(new_block,placeat){
-    this.getChunk(placeat[0]+":"+placeat[1]);
     this.#chunks[placeat[0]+":"+placeat[1]][placeat[5]].block=new_block;
   }
   placetile(new_tile,placeat){
@@ -95,3 +94,6 @@ class worldV1{
   }
 
 }
+
+
+exports.world=worldV1;

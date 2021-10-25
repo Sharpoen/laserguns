@@ -18,6 +18,7 @@ function onload(){
 
   socket.on("join", function(room){
     chatRoom = room;
+    gameworld=new worldV1();
   });
 
   socket.on("recieve", function(message){
@@ -38,8 +39,10 @@ function onload(){
 
     });
 
-  socket.on("block",function(block){
-    blocks[block.id]=block;
+  socket.on("block",function(data){
+    console.log("aaaa")
+    gameworld.placeblock(data.newblock,data.blockat);
+    console.log("blockData:"+data);
   });
 
   socket.on("interact",function(data){
@@ -72,6 +75,14 @@ function SubmitChat(){
 
 function Send(){
   socket.emit("send", {x:x,y:y,name:name});
+}
+
+function tellServerBlock(newblock,blockat){
+  console.log("sending block data:"+newblock);
+  socket.emit("block", {
+    newblock:newblock,
+    blockat:blockat
+  });
 }
 
 function delayReset(){

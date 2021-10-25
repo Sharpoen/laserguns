@@ -35,18 +35,28 @@ s:secondary
 */
 var inventory={
   "hand":{amount:1,image:"items-hand",p:{},s:{}},
-  "sand":{amount:64,image:"blocks-sand",p:{
-    placeblock:{
+  "sand":{amount:64,image:"nblocks-sand",p:{
+    "placeblock":{
       block:{
-        type:"sand",
-        solid:false,
+        blockType:"sand",
+        solid:true,
         transparent:false,
         image:"nblocks-sand",
+        hp:10,
+        maxhp:10
       }
     }
   },s:{}},
-  "sword":{amount:1,image:"items-protosword",p:{},s:{}},
-  "shovel":{amount:1,image:"items-protoshovel",p:{},s:{}},
+  "sword":{amount:1,image:"items-protosword",p:{
+    "sword":{
+      strength:1
+    }
+  },s:{}},
+  "shovel":{amount:1,image:"items-protoshovel",p:{
+    "shovel":{
+      strength:1
+    }
+  },s:{}},
   "wood":{amount:16,image:"items-wood",p:{},s:{}},
 };
 

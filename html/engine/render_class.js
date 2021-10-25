@@ -116,10 +116,14 @@ class outV1{
   render_chunk(chunk_data,atx,aty,qbt){
     for(let i=0;i<256;i++){
       if(chunk_data[i].block.transparent&&qbt=="tiles"){
-        image(images[chunk_data[i].tile.image],-x*this.#game_scale+width/2-this.#game_scale/2+atx*this.#game_scale+floor(i%16)*this.#game_scale,-y*this.#game_scale+height/2-this.#game_scale/2+aty*this.#game_scale+floor(i/16)*this.#game_scale,this.#game_scale,this.#game_scale);
+        if(images[chunk_data[i].tile.image]){
+          image(images[chunk_data[i].tile.image],-x*this.#game_scale+width/2-this.#game_scale/2+atx*this.#game_scale+floor(i%16)*this.#game_scale,-y*this.#game_scale+height/2-this.#game_scale/2+aty*this.#game_scale+floor(i/16)*this.#game_scale,this.#game_scale,this.#game_scale);
+        }
       }
       if(!chunk_data[i].block.invisible&&qbt=="blocks"){
-        image(images[chunk_data[i].block.image],-x*this.#game_scale+width/2-this.#game_scale/2+atx*this.#game_scale+floor(i%16)*this.#game_scale,-y*this.#game_scale+height/2-this.#game_scale/2+aty*this.#game_scale+floor(i/16)*this.#game_scale-this.#game_scale/4,this.#game_scale,this.#game_scale*1.25);
+        if(images[chunk_data[i].block.image]){
+          image(images[chunk_data[i].block.image],-x*this.#game_scale+width/2-this.#game_scale/2+atx*this.#game_scale+floor(i%16)*this.#game_scale,-y*this.#game_scale+height/2-this.#game_scale/2+aty*this.#game_scale+floor(i/16)*this.#game_scale-this.#game_scale/4,this.#game_scale,this.#game_scale*1.25);
+        }
       }
     }
   }

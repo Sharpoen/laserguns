@@ -47,82 +47,54 @@ class inV1{
       blockat[3]=Math.floor(mouseat.split(":")[1])-blockat[1]*16;
       blockat[5]=blockat[2]+blockat[3]*16;
 
-      if(inputs["query"]){
-        console.log(blockat);
-      }
-
       if(inputs["clickL"]){
         let action = inventory[holdingItem].p;
-        if(action.placeblock!=undefined){
+        if(action.placeblock){
           world.placeblock(action.placeblock.block,blockat);
+          tellServerBlock(action.placeblock.block,blockat);
         }
+        if(action.shovel){
+          let newChunk=world.getChunk(blockat[0]+":"+blockat[1]);
+          let newBlock=newChunk[blockat[5]];
+          if(inputs["query"]){
+            console.log(newChunk);
+            console.log(newBlock);
+          }
+
+          if(newBlock.block.blockType=="air"){
+            if(newBlock.tile.tileType="grass"){
+              newBlock.tile={
+                tileType:"air",
+                solid:false,
+              }
+            }
+          }else{
+            if(["sand", "gravel", "dirt", "grass"].includes(newBlock.block.blockType)){
+              newBlock.block.hp-=action.shovel.strength*5
+            }else if(!["stone","wood","obsidian","iron_ore","coal_ore","obamium_ore"].includes(newBlock.block.blockType)){
+              newBlock.block.hp-=1;
+            }
+            if(newBlock.block.hp<=0){
+              newBlock.block={
+                blockType:"air",
+                maxhp:1,
+                hp:1,
+                solid:false,
+                transparent:true,
+                invisible:true
+              }
+            }
+          }
+          tellServerBlock(newBlock,blockat);
+          world.placeblock(newBlock.block,blockat);
+          world.placetile(newBlock.tile,blockat);
+        }
+
       }
       if(inputs["clickR"]){
         let action = inventory[holdingItem].s;
       }
 
-    }
-  }
-  old_interactions(){
-    if(dist(mouseX,mouseY,width/2,height/2)<5*this.#game_scale){
-      fill(0,100,0,75);
-      rect(round((mouseX-width/2)/this.#game_scale+x)*this.#game_scale+width/2-x*this.#game_scale-(this.#game_scale*1.3)/2,round((mouseY-height/2)/this.#game_scale+y)*this.#game_scale+height/2-y*this.#game_scale-(this.#game_scale*1.3)/2,this.#game_scale*1.3,this.#game_scale*1.3);
-      image(images["cursor"],round((mouseX-width/2)/this.#game_scale+x)*this.#game_scale+width/2-x*this.#game_scale-(this.#game_scale*1.3)/2,round((mouseY-height/2)/this.#game_scale+y)*this.#game_scale+height/2-y*this.#game_scale-(this.#game_scale*1.3)/2,this.#game_scale*1.3,this.#game_scale*1.3);
-      if(inputs["clickL"]){
-        if(holdingItem=="sand"){
-          if(inventory[holdingItem]["amount"]>0){
-            var newBlock={x:round((mouseX-width/2)/this.#game_scale+x),y:round((mouseY-height/2)/this.#game_scale+y),id:round((mouseX-width/2)/this.#game_scale+x)+":"+round((mouseY-height/2)/this.#game_scale+y),type:"sand",hp:10,maxhp:10,solid:true};
-            blocks[newBlock.id]=newBlock;
-            socket.emit("block",newBlock);
-            
-            inventory[holdingItem]["amount"]-=1;
-            loadhudInventory();
-          }
-        }
-        if(holdingItem=="shovel"){
-          if(round((mouseX-width/2)/this.#game_scale+x)+":"+round((mouseY-height/2)/this.#game_scale+y) in blocks){
-            var newBlock=blocks[round((mouseX-width/2)/this.#game_scale+x)+":"+round((mouseY-height/2)/this.#game_scale+y)];
-            
-            if(newBlock.type=="sand"){
-              newBlock.hp-=6;
-            }
-
-            if(newBlock.hp>0){
-              blocks[round((mouseX-width/2)/this.#game_scale+x)+":"+round((mouseY-height/2)/this.#game_scale+y)]=newBlock;
-            }else{
-              if(newBlock.type in inventory){
-                inventory[newBlock.type]["amount"]+=1;
-              }else{
-                inventory[newBlock.type]["amount"]=1;
-              }
-              loadhudInventory();
-              newBlock={x:round((mouseX-width/2)/this.#game_scale+x),y:round((mouseY-height/2)/this.#game_scale+y),id:round((mouseX-width/2)/this.#game_scale+x)+":"+round((mouseY-height/2)/this.#game_scale+y),type:"air",hp:10,maxhp:10,solid:false};
-              blocks[newBlock.id]=newBlock;
-            }
-            socket.emit("block",newBlock);
-
-          }
-        }
-        if(holdingItem=="hand"){
-          if(round((mouseX-width/2)/this.#game_scale+x)+":"+round((mouseY-height/2)/this.#game_scale+y) in blocks){
-            var newBlock=blocks[round((mouseX-width/2)/this.#game_scale+x)+":"+round((mouseY-height/2)/this.#game_scale+y)];
-
-            newBlock.hp-=1;
-
-            if(newBlock.hp>0){
-              blocks[round((mouseX-width/2)/this.#game_scale+x)+":"+round((mouseY-height/2)/this.#game_scale+y)]=newBlock;
-            }else{
-              newBlock={x:round((mouseX-width/2)/this.#game_scale+x),y:round((mouseY-height/2)/this.#game_scale+y),id:round((mouseX-width/2)/this.#game_scale+x)+":"+round((mouseY-height/2)/this.#game_scale+y),type:"air",hp:10,maxhp:10,solid:false};
-              blocks[newBlock.id]=newBlock;
-            }
-            socket.emit("block",newBlock);
-
-          }
-        }
-        // if(holdingItem=="sword"){
-        //   socket.emit("interact",{"attack":mouseOver,"damage":-10})
-        // }
-      }
     }
   }
 }

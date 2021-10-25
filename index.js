@@ -13,6 +13,8 @@ app.use(express.static(gamedirectory));
 
 httpserver.listen(3000);
 
+const world=require('./world_class.js').world;
+
 var rooms = [];
 var usernames = [];
 
@@ -22,7 +24,8 @@ function roomDataPreset(owner) {
   this.data = {
     "owner": owner,
     "blocks": {},
-    "chunks": {}
+    "chunks": {},
+    "initChunks":{}
   }
   return this.data;
 }
@@ -45,7 +48,8 @@ io.on('connection', function(socket) {
       io.in(room).emit("crecieve", {
         text: "Server : " + username + " has entered the chat.",
         blocks: roomData[rooms[socket.id]]["blocks"],
-        owner: roomData[rooms[socket.id]]["owner"]
+        owner: roomData[rooms[socket.id]]["owner"],
+        chunks: roomData[rooms[socket.id]]["chunks"],
       });
       socket.emit("join", rooms[socket.id]);
     }
@@ -53,8 +57,7 @@ io.on('connection', function(socket) {
 
   socket.on("send", function(message) {
     io.in(rooms[socket.id]).emit("recieve", [usernames[socket.id], message]);
-    // console.log(rooms[socket.id]);
-    // console.log("Recieved. "+message.x);
+
   });
 
   socket.on("block", function(block) {
@@ -62,7 +65,7 @@ io.on('connection', function(socket) {
     if (!(rooms[socket.id] in roomData)) {
       roomData[rooms[socket.id]] = roomDataPreset(usernames[socket.id]);
     }
-    roomData[rooms[socket.id]]["blocks"][block.id] = block;
+    roomData[rooms[socket.id]]["initChunks"][block.blockat] = block.newblock;
   });
 
   socket.on("recieve", function(message) {

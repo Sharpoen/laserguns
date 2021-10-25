@@ -7,7 +7,7 @@ class guiV1{
       },
     1:{
         item:"sand",
-        image:"blocks-sand"
+        image:"nblocks-sand"
       },
     2:{
         item:"shovel",
