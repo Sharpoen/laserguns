@@ -51,7 +51,10 @@ io.on('connection', function(socket) {
         owner: roomData[rooms[socket.id]]["owner"],
         chunks: roomData[rooms[socket.id]]["chunks"],
       });
-      socket.emit("join", rooms[socket.id]);
+      socket.emit("join", {
+        room:rooms[socket.id],
+        initChunks:roomData[rooms[socket.id]]["initChunks"],
+      });
     }
   })
 

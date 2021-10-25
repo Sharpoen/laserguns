@@ -11,7 +11,7 @@ class worldV1{
   createBlock(){
     var newBlock={
       block:{
-        solid:true,
+        solid:false,
         blockType:"air",
         transparent:true,
         invisible:true,

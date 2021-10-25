@@ -16,9 +16,14 @@ function onload(){
   chatIn = document.getElementById("chatIn");
   messageInput = document.getElementById("ComposedMessage");
 
-  socket.on("join", function(room){
-    chatRoom = room;
+  socket.on("join", function(data){
+    chatRoom = data.room;
     gameworld=new worldV1();
+      console.log(data["initChunks"]);
+      for(let i in data["initChunks"]){
+        console.log(i.split(','));
+        gameworld.placeblock(data["initChunks"][i],i.split(','));
+      }console.log(gameworld.getChunk("0:0"));    
   });
 
   socket.on("recieve", function(message){
@@ -32,11 +37,10 @@ function onload(){
       lastJoin=message[1];
 
     });
-  socket.on("crecieve", function(message){
+  socket.on("crecieve", function(data){
 
-      blocks = message["blocks"];
-      owner = message["owner"];
-
+      // console.log(data);
+      owner = data["owner"];
     });
 
   socket.on("block",function(data){
