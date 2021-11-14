@@ -11,23 +11,32 @@ class inV1{
     return this.#game_scale;
   }
 
-  movement(){
-    if(inputs["up"]){
-      y-=speed;
-      cy=floor(y/16);
-    }
-    if(inputs["down"]){
-      y+=speed;
-      cy=floor(y/16);
-    }
-    if(inputs["left"]){
-      x-=speed;
-      cx=floor(x/16);
-    }
-    if(inputs["right"]){
-      x+=speed;
-      cx=floor(x/16);
-    }
+  movement(world){
+      let pat=Array.from([]); 
+
+      pat[0]=Math.floor(x/16);
+      pat[1]=Math.floor(y/16);
+
+      pat[2]=Math.floor(x)-pat[0]*16;
+      pat[3]=Math.floor(y)-pat[1]*16;
+      pat[5]=pat[2]+pat[3]*16;
+
+      if(inputs["left"]){
+        x-=speed;
+      }
+      if(inputs["right"]){
+        x+=speed;
+      }
+      if(inputs["up"]){
+        y-=speed;
+      }
+      if(inputs["down"]){
+        y+=speed;
+      }
+
+    cx=floor(x/16);
+    cy=floor(y/16);
+
   }
 
   use_item(world){
@@ -48,9 +57,14 @@ class inV1{
       blockat[5]=blockat[2]+blockat[3]*16;
 
       if(inputs["clickL"]){
-        let action = inventory[holdingItem].p;
+        let action;
+        if(inventory[holdingItem]){
+          action = inventory[holdingItem].p;
+        }else{
+          action = {};
+        }
         if(action.placeblock){
-          world.placeblock(action.placeblock.block,blockat);
+          world.placeblock(action.placeblock.block.block,blockat);
           tellServerBlock(action.placeblock.block,blockat);
         }
         if(action.shovel){
@@ -66,12 +80,13 @@ class inV1{
               newBlock.tile={
                 tileType:"air",
                 solid:false,
+                image:"tiles-holes-dirt",
               }
             }
           }else{
             if(["sand", "gravel", "dirt", "grass"].includes(newBlock.block.blockType)){
               newBlock.block.hp-=action.shovel.strength*5
-            }else if(!["stone","wood","obsidian","iron_ore","coal_ore","obamium_ore"].includes(newBlock.block.blockType)){
+            }else if(!(["stone","obsidian","iron_ore","coal_ore","obamium_ore"].includes(newBlock.block.blockType))){
               newBlock.block.hp-=1;
             }
             if(newBlock.block.hp<=0){

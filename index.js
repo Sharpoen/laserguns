@@ -34,7 +34,7 @@ function roomDataPreset(owner) {
 io.on('connection', function(socket) {
 
   socket.on("joingame", function(room, username) {
-    if (username != "") {
+    if (username != "" && username.length<15) {
       rooms[socket.id] = room;
       usernames[socket.id] = username;
 

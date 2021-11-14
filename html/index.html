@@ -18,7 +18,6 @@
       <script src = "engine/render_class.js"></script>
       <script src = "engine/input_class.js"></script>
 
-      <script src = "loadhud.js"></script>
       <script src = "handlemultiplayer.js"></script>
       <script src = "script.js"></script>
 
@@ -44,19 +43,6 @@
     <div id="nestCanvas"></div>
     <div id = "Gamewindow"></div>
     </fieldset>
-    <div id="hud">
-      <fieldset>
-        <span id="health">[ 100 ]</span><br>
-        <span id="hunger">[ 100 ]</span><br>
-      </fieldset>
-      <fieldset>
-        <span onclick="loadhudInventory();" class="hudbutton">[ Inventory ]</span> | <span onclick="loadhudPlayers();" class="hudbutton">[ Players ]</span> | <span onclick="loadhudInfo();" class="hudbutton">[ Info ]</span> | <span onclick="loadhudDebug();" class="hudbutton">[ Debug ]</span> | <span onclick="loadhudFriends();" class="hudbutton">[ Friends ]</span>
-        <div id="hudSection"></div>
-      </fieldset>
-      <fieldset id="debugValues">
-        <span class="dataText" id="fps">FPS:40</span>
-      </fieldset>
-    </div>
 
     <fieldset id="chatFieldset">
       <legend>--Chat--</legend>

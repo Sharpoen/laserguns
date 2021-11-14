@@ -52,27 +52,6 @@ class outV1{
     }
   }
 
-  old_render_blocks(){
-    var blocksU=blocks;
-
-    for(n in blocksU){
-
-      var b=blocksU[n]
-
-      //collision used to be here
-
-      if(b.type=="sand"){
-        image(images["blocks-sand"],b.x*this.#game_scale-x*this.#game_scale+width/2-this.#game_scale/2,b.y*this.#game_scale-y*this.#game_scale+height/2-this.#game_scale/2,this.#game_scale,this.#game_scale);
-      }
-    }
-  }
-
-  old_render_player(){
-    fill(256,256,256);
-    stroke(0,0);
-    rect(width/2-this.#game_scale/2,height/2-this.#game_scale/2, this.#game_scale, this.#game_scale);
-  }
-
   render_player(walking){
     var moving = 0;
     if(walking){
@@ -96,6 +75,14 @@ class outV1{
     }
   }
 
+  render_players(){
+    var plsU=pls;
+    for(let i=0;i<plsU.length;i++){
+      if(plsU[i].name!=name){
+        image(images["player-full"],plsU[i].x*this.#game_scale-x*this.#game_scale+width/2-this.#game_scale*1.5/2,plsU[i].y*this.#game_scale-y*this.#game_scale+height/2-this.#game_scale, (this.#game_scale*1.5), (this.#game_scale*1.5),0,0,16,16);
+      }
+    }
+  }
   old_render_players(){
     var plsU=pls;
     fill(255,0,0);

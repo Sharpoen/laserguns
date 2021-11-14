@@ -60,7 +60,12 @@ class worldV1{
     this.#chunks[placeat[0]+":"+placeat[1]][placeat[5]].block=new_block;
   }
   placetile(new_tile,placeat){
+    this.getChunk(placeat[0]+":"+placeat[1]);
     this.#chunks[placeat[0]+":"+placeat[1]][placeat[5]].tile=new_tile;
+  }
+
+  getblock(placeat){
+    return this.getChunk(placeat[0]+":"+placeat[1])[placeat[5]];
   }
 
   loadChunks(rDist){

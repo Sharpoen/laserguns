@@ -45,16 +45,6 @@ span, .red{
   width:50%
 }
 
-#Gamefieldset, #hud {
-  float: left;
-}
-#hud{
-  text-size-adjust: auto;
-
-  /* important */
-  visibility: visible;
-}
-
 #health, #hunger, .dataText{
   color: lightcoral;
   background-color: black;

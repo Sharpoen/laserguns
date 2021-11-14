@@ -45,7 +45,7 @@ var chunksToRender = gameworld.loadChunks(gui.settings["renderDistance"]);
 setInterval(function(){
   chunksToRender = gameworld.loadChunks(gui.settings["renderDistance"]);
   
-  gameinput.movement();
+  gameinput.movement(gameworld);
   gamescreen.setGoing(inputs["up"]);
 
   if(inputs["zoomIn"]){
@@ -66,6 +66,14 @@ setInterval(function(){
 window.addEventListener("keydown",function(event){
   if(event.keyCode==69){
     gui.pagesOpen["inventory"]=!gui.pagesOpen["inventory"];
+    for(let n in gui.pagesOpen){
+      if(n!="inventory"){
+        gui.pagesOpen[n]=false;
+      }
+    }
+  }
+  if([49,50,51,52,53,54,55,56,57].includes(event.keyCode)){
+    gui.hotswap(event.keyCode-49);
   }
 });
 
@@ -77,11 +85,8 @@ setInterval(function(){
 },500);
 
 function draw(){
-  var mouseOver=[];
   // background(27, 77, 62);
   background(50);
-
-  document.getElementById("fps").innerHTML="FPS: [ "+round(frameRate())+" ]<br>x: [ "+round(x)+" ]"+"<br>y: [ "+round(y)+" ]<br>cx: [ "+cx+" ]"+"<br>cy: [ "+cy+" ]";
 
 //Player Settup
 
@@ -93,25 +98,65 @@ function draw(){
 
   //end of new stuff
 
-  gamescreen.old_render_blocks();
+  // gamescreen.old_render_blocks();
 
   gamescreen.old_render_players();
+  gamescreen.render_players();
 
-  if(debug.hitboxes){
-    gamescreen.old_render_player();
+  if(!debug.hitboxes){
+    gamescreen.render_player(inputs["up"]||inputs["down"]||inputs["left"]||inputs["right"]);
   }
-
-  gamescreen.render_player(inputs["up"]||inputs["down"]||inputs["left"]||inputs["right"]);
 
   if(debug.grid){
     gamescreen.render_grid();
+    stroke(0,0);
+  }
+
+  if(debug.hitboxes){
+    // rect(-25/2,height/2-25/2, 25, 25);
+    fill(255);
+    let gamescale=gamescreen.getScale();
+    rect(width/2-gamescale/2-x%1*gamescale+gamescale,height/2-gamescale/2-y%1*gamescale+gamescale,gamescale,gamescale);
+    // if()
+    //
+    fill(0,50);
+    ellipse(width/2,height/2,30,30);
+    fill(0,255);
+    ellipse(width/2,height/2,5,5);
+      //
+      fill(0,50);
+      ellipse(width/2+speed*gamescreen.getScale(),height/2,gamescreen.getScale(),gamescreen.getScale());
+      fill(0,255);
+      ellipse(width/2+speed*gamescreen.getScale(),height/2,5,5);
+      //
+      fill(0,50);
+      ellipse(width/2-speed*gamescreen.getScale(),height/2,gamescreen.getScale(),gamescreen.getScale());
+      fill(0,255);
+      ellipse(width/2-speed*gamescreen.getScale(),height/2,5,5);
+      //
+      fill(0,50);
+      ellipse(width/2,height/2+speed*gamescreen.getScale(),gamescreen.getScale(),gamescreen.getScale());
+      fill(0,255);
+      ellipse(width/2,height/2+speed*gamescreen.getScale(),5,5);
+      //
+      fill(0,50);
+      ellipse(width/2,height/2-speed*gamescreen.getScale(),gamescreen.getScale(),gamescreen.getScale());
+      fill(0,255);
+      ellipse(width/2,height/2-speed*gamescreen.getScale(),5,5);
+      //
+
   }
 
 
-  if(gui.pagesOpen["inventory"]||gui.pagesOpen["settings"]){
+
+  if(gui.pagesOpen.inventory||gui.pagesOpen.settings||gui.pagesOpen.debug){
     gui.render_master();
     if(gui.pagesOpen["inventory"]){
       gui.render_inventory();
+    }else if(gui.pagesOpen["settings"]){
+      gui.render_settings();
+    }else if(gui.pagesOpen["debug"]){
+      gui.render_debug();
     }
 
   }else{
@@ -119,7 +164,6 @@ function draw(){
 
     gui.render_hotbar();
   }
-
 //
   
   inputs["clickL"]=false;

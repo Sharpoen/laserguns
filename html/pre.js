@@ -38,12 +38,36 @@ var inventory={
   "sand":{amount:64,image:"nblocks-sand",p:{
     "placeblock":{
       block:{
-        blockType:"sand",
-        solid:true,
-        transparent:false,
-        image:"nblocks-sand",
-        hp:10,
-        maxhp:10
+        block:{
+          blockType:"sand",
+          solid:true,
+          invisible:false,
+          transparent:false,
+          image:"nblocks-sand",
+          hp:10,
+          maxhp:10,
+        },
+        tile:{
+          ignore:true,
+        }
+      }
+    }
+  },s:{}},
+  "dirt":{amount:64,image:"nblocks-dirt",p:{
+    "placeblock":{
+      block:{
+        block:{
+          blockType:"dirt",
+          solid:true,
+          invisible:false,
+          transparent:false,
+          image:"nblocks-dirt",
+          hp:15,
+          maxhp:15,
+        },
+        tile:{
+          ignore:true,
+        }
       }
     }
   },s:{}},
@@ -57,7 +81,24 @@ var inventory={
       strength:1
     }
   },s:{}},
-  "wood":{amount:16,image:"items-wood",p:{},s:{}},
+  "wood":{amount:64,image:"items-wood",p:{
+    "placeblock":{
+      block:{
+        block:{
+          blockType:"wood",
+          solid:true,
+          invisible:false,
+          transparent:false,
+          image:"nblocks-dirt",
+          hp:15,
+          maxhp:15,
+        },
+        tile:{
+          ignore:true,
+        }
+      }
+    }
+  },s:{}},
 };
 
 var holdingItem="hand";
@@ -110,17 +151,21 @@ function preload(){
   images["tiles-grass-2"]=loadImage("assets/assets-png/tiles/Grass/LighterGrass.png");
   images["tiles-grass-3"]=loadImage("assets/assets-png/tiles/Grass/LightGrass.png");
 
+  images["tiles-holes-grass"]=loadImage("assets/assets-png/tiles/holes/grass.png");
+  images["tiles-holes-dirt"]=loadImage("assets/assets-png/tiles/holes/dirt.png");
+
   images["blocks-air"]=loadImage("assets/assets-png/blocks/air.png");
   images["blocks-sand"]=loadImage("assets/assets-png/blocks/sand.png");
   images["blocks-grass"]=loadImage("assets/assets-png/blocks/grass.png");
 
   images["nblocks-sand"]=loadImage("assets/assets-png/newBlocks/sand.png");
+  images["nblocks-dirt"]=loadImage("assets/assets-png/newBlocks/dirt.png");
 
   images["items-protosword"]=loadImage("assets/assets-png/items/swords/sword1.png");
 
   images["items-protoshovel"]=loadImage("assets/assets-png/items/shovels/shovel1.png");
 
-  images["items-hand"]=loadImage("assets/assets-png/items/handart1.png");
+  images["items-hand"]=loadImage("assets/assets-jpg/hand.jpg");
 
   images["items-wood"]=loadImage("assets/assets-png/items/wooditem.png");
 
