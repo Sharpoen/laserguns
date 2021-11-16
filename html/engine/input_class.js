@@ -66,11 +66,31 @@ class inV1{
       vbr[2]=!world.getblock(world.modpos(vbr[0],vbr[1])).block.solid;
 
       if(vtl[2]&&vtr[2]&&vbl[2]&&vbr[2]){
-        x=newpos[0];
+        if(inputs["up"]||inputs["down"]){
+          if(inputs.query){
+            console.log("1");
+          }
+          console.log((tl[2]&&tr[2]&&bl[2]&&br[2]));
+          if(tl[2]&&tr[2]&&bl[2]&&br[2]){
+            y=newpos[1];
+            if(inputs.query){
+              console.log("2");
+            }
+          }
+          x=newpos[0];
+        }else{
+          x=newpos[0];
+        }
+      }else if(inputs["left"]||inputs["right"]){
+        x=round(x);
       }
 
-      if(htl[2]&&htr[2]&&hbl[2]&&hbr[2]){
-        y=newpos[1];
+      if(!(vtl[2]&&vtr[2]&&vbl[2]&&vbr[2])||!(inputs["left"]||inputs["right"])){
+        if(htl[2]&&htr[2]&&hbl[2]&&hbr[2]){
+          y=newpos[1];
+        }else if(inputs["up"]||inputs["down"]){
+          y=round(y);
+        }
       }
 
     cx=floor(x/16);
