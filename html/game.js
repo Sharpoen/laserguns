@@ -1,6 +1,5 @@
 function setup(){
   let renderer = createCanvas(windowWidth/100*65, windowHeight/100*65);
-  renderer.parent("nestCanvas");
   frameRate(60);
   noSmooth();
 }
@@ -12,24 +11,10 @@ function windowResized() {
 
 function updateHealth(add){
   health+=add;
-  document.getElementById("health").innerHTML="[ "+health+" ]";
   if(health<=0){
     resetData();
   }
 }
-
-
-setInterval(function(){
-
-  var playersListMoniterString = "Server : " + chatRoom + " | Players Online : ";
-
-  for(n in linkPls){
-    playersListMoniterString+=n+", ";
-  }
- 
-  document.getElementById("Gamewindow").innerHTML=playersListMoniterString;
-
-},2000);
 
 
 var gamescreen = new outV1();
@@ -85,20 +70,14 @@ setInterval(function(){
 },500);
 
 function draw(){
-  // background(27, 77, 62);
+
   background(50);
 
-//Player Settup
 
 
-  //new stuff. yay!
 
 
   gamescreen.render_chunks(gameworld.getChunks(chunksToRender));
-
-  //end of new stuff
-
-  // gamescreen.old_render_blocks();
 
   gamescreen.old_render_players();
   gamescreen.render_players();
@@ -113,11 +92,30 @@ function draw(){
   }
 
   if(debug.hitboxes){
-    // rect(-25/2,height/2-25/2, 25, 25);
     fill(255);
     let gamescale=gamescreen.getScale();
-    rect(width/2-gamescale/2-x%1*gamescale+gamescale,height/2-gamescale/2-y%1*gamescale+gamescale,gamescale,gamescale);
-    // if()
+
+    if(true){
+      fill(255);
+      
+      if(inputs["query"]){
+        console.log("n"+pos[0]+"x"+x);
+        console.log(rect(width/2-gamescale/2-pos[0]*gamescale+round(pos[0])*gamescale,height/2-pos[1]*gamescale+round(pos[1])*gamescale-gamescale/2,gamescale,gamescale));
+      }
+      // rect(width/2-gamescale/2-pos[0]*gamescale+round(pos[0])*gamescale,height/2-pos[1]*gamescale+round(pos[1])*gamescale-gamescale/2,gamescale,gamescale);
+      gamescreen.square_on(round(x),round(y));
+      fill(0,0,255,100);
+      gamescreen.square_on(round(x-0.4),round(y-0.4));
+      fill(0,255,0,100);
+      gamescreen.square_on(round(x+0.4),round(y-0.4));
+      fill(255,0,0,100);
+      gamescreen.square_on(round(x-0.4),round(y+0.4));
+      fill(255,255,0,100);
+      gamescreen.square_on(round(x+0.4),round(y+0.4));
+      // y=pos[1]+0.5;
+      // fill(255,0,0,100);
+      // rect(width/2-gamescale/2-x*gamescale+round(x)*gamescale,height/2-y*gamescale+round(y)*gamescale-gamescale/2,gamescale,gamescale);
+    }
     //
     fill(0,50);
     ellipse(width/2,height/2,30,30);
@@ -144,7 +142,11 @@ function draw(){
       fill(0,255);
       ellipse(width/2,height/2-speed*gamescreen.getScale(),5,5);
       //
-
+      strokeWeight(5);
+      stroke(0);
+      line(width/2,0,width/2,height);
+      line(0,height/2,width,height/2);
+      stroke(0,0);
   }
 
 
@@ -163,6 +165,7 @@ function draw(){
     gameinput.use_item(gameworld);
 
     gui.render_hotbar();
+    gui.render_bar(color(0,255,0),health,100,0,0,(width+height)/2/5,(width+height)/2/40);
   }
 //
   

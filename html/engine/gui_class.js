@@ -211,7 +211,7 @@ class guiV1{
       text(n,width/16+75,height/16+45+i*30);
     }
     i++;
-    text("info:\nx"+floor(x)+"("+x+")"+"\ny"+floor(y)+"("+y+")",width/16+10,height/16+45+i*30);
+    text("info:\nx"+round(x)+"("+x+")"+"\ny"+round(y)+"("+y+")",width/16+10,height/16+45+i*30);
 
 
 
@@ -251,6 +251,13 @@ class guiV1{
       }
     }
 
+  }
+
+  render_bar(color,cur,maxi,x,y,w,h){
+    fill(0);
+    rect(x,y,w,h);
+    fill(color);
+    rect(x+w/32,y+h/16,(w/16*15)/maxi*cur,h/8*7);
   }
 
 }

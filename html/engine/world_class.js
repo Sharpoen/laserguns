@@ -67,6 +67,18 @@ class worldV1{
   getblock(placeat){
     return this.getChunk(placeat[0]+":"+placeat[1])[placeat[5]];
   }
+  modpos(x,y){
+    let pat=[];
+
+    pat[0]=Math.floor(x/16);
+    pat[1]=Math.floor(y/16);
+
+    pat[2]=Math.floor(x)-pat[0]*16;
+    pat[3]=Math.floor(y)-pat[1]*16;
+    pat[5]=pat[2]+pat[3]*16;
+
+    return pat;
+  }
 
   loadChunks(rDist){
     var openChunks=[];

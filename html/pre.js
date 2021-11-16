@@ -21,7 +21,9 @@ var linkPls={
 var pls=[];
 var blocks=[];
 
-
+var settings={
+  "scale":30,
+}
 var debug={
   "grid":false,
   "hitboxes":false,
@@ -123,9 +125,7 @@ function resetData(){
   inventory["shovel"].amount=1;
   inventory["wood"].amount=16;
   // friends={};
-  
-  loadhudInventory();
-  
+    
   health=100;
   
   x=round((Math.random()*-(10))+(Math.random()*(10)));

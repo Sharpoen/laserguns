@@ -12,26 +12,65 @@ class inV1{
   }
 
   movement(world){
-      let pat=Array.from([]); 
+      // let pat=Array.from([]); 
 
-      pat[0]=Math.floor(x/16);
-      pat[1]=Math.floor(y/16);
+      // pat[0]=Math.floor(x/16);
+      // pat[1]=Math.floor(y/16);
 
-      pat[2]=Math.floor(x)-pat[0]*16;
-      pat[3]=Math.floor(y)-pat[1]*16;
-      pat[5]=pat[2]+pat[3]*16;
+      // pat[2]=Math.floor(x)-pat[0]*16;
+      // pat[3]=Math.floor(y)-pat[1]*16;
+      // pat[5]=pat[2]+pat[3]*16;
+      let newpos=Array.from([x,y]);
 
       if(inputs["left"]){
-        x-=speed;
+        newpos[0]-=speed;
       }
       if(inputs["right"]){
-        x+=speed;
+        newpos[0]+=speed;
       }
       if(inputs["up"]){
-        y-=speed;
+        newpos[1]-=speed;
       }
       if(inputs["down"]){
-        y+=speed;
+        newpos[1]+=speed;
+      }
+
+      let tl=[round(newpos[0]-0.4),round(newpos[1]-0.4)];
+      let tr=[round(newpos[0]+0.4),round(newpos[1]-0.4)];
+      let bl=[round(newpos[0]-0.4),round(newpos[1]+0.4)];
+      let br=[round(newpos[0]+0.4),round(newpos[1]+0.4)];
+
+      tl[2]=!world.getblock(world.modpos(tl[0],tl[1])).block.solid;
+      tr[2]=!world.getblock(world.modpos(tr[0],tr[1])).block.solid;
+      bl[2]=!world.getblock(world.modpos(bl[0],bl[1])).block.solid;
+      br[2]=!world.getblock(world.modpos(br[0],br[1])).block.solid;
+      
+      let htl=[round(x-0.4),round(newpos[1]-0.4)];
+      let htr=[round(x+0.4),round(newpos[1]-0.4)];
+      let hbl=[round(x-0.4),round(newpos[1]+0.4)];
+      let hbr=[round(x+0.4),round(newpos[1]+0.4)];
+
+      htl[2]=!world.getblock(world.modpos(htl[0],htl[1])).block.solid;
+      htr[2]=!world.getblock(world.modpos(htr[0],htr[1])).block.solid;
+      hbl[2]=!world.getblock(world.modpos(hbl[0],hbl[1])).block.solid;
+      hbr[2]=!world.getblock(world.modpos(hbr[0],hbr[1])).block.solid;
+      
+      let vtl=[round(newpos[0]-0.4),round(y-0.4)];
+      let vtr=[round(newpos[0]+0.4),round(y-0.4)];
+      let vbl=[round(newpos[0]-0.4),round(y+0.4)];
+      let vbr=[round(newpos[0]+0.4),round(y+0.4)];
+
+      vtl[2]=!world.getblock(world.modpos(vtl[0],vtl[1])).block.solid;
+      vtr[2]=!world.getblock(world.modpos(vtr[0],vtr[1])).block.solid;
+      vbl[2]=!world.getblock(world.modpos(vbl[0],vbl[1])).block.solid;
+      vbr[2]=!world.getblock(world.modpos(vbr[0],vbr[1])).block.solid;
+
+      if(vtl[2]&&vtr[2]&&vbl[2]&&vbr[2]){
+        x=newpos[0];
+      }
+
+      if(htl[2]&&htr[2]&&hbl[2]&&hbr[2]){
+        y=newpos[1];
       }
 
     cx=floor(x/16);

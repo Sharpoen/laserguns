@@ -76,7 +76,7 @@ class outV1{
   }
 
   render_players(){
-    var plsU=pls;
+    let plsU=pls;
     for(let i=0;i<plsU.length;i++){
       if(plsU[i].name!=name){
         image(images["player-full"],plsU[i].x*this.#game_scale-x*this.#game_scale+width/2-this.#game_scale*1.5/2,plsU[i].y*this.#game_scale-y*this.#game_scale+height/2-this.#game_scale, (this.#game_scale*1.5), (this.#game_scale*1.5),0,0,16,16);
@@ -84,7 +84,7 @@ class outV1{
     }
   }
   old_render_players(){
-    var plsU=pls;
+    let plsU=pls;
     fill(255,0,0);
     for(let i=0;i<plsU.length;i++){
       if(plsU[i].name!=name){
@@ -99,7 +99,9 @@ class outV1{
       }
     }
   }
-
+  square_on(x_,y_){
+    rect(x_*this.#game_scale-x*this.#game_scale+width/2-this.#game_scale/2,y_*this.#game_scale-y*this.#game_scale+height/2-this.#game_scale/2,this.#game_scale,this.#game_scale);
+  }
   render_chunk(chunk_data,atx,aty,qbt){
     for(let i=0;i<256;i++){
       if(chunk_data[i].block.transparent&&qbt=="tiles"){
@@ -164,6 +166,6 @@ class outV1{
   
 }
 
-class outinV2{
+class outV2{
   
 }
