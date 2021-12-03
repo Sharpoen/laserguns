@@ -1,5 +1,7 @@
 class guiV1{
 
+  freeze_keys=false;
+
   hotbarItems={
     selected:0,
     invheld:"",
@@ -27,12 +29,14 @@ class guiV1{
 
   pagesOpen={
     "settings":false,
-    "inventory":true,
+    "inventory":false,
     "debug":false,
+    "chat":false,
+    "connect":true,
   }
 
   settings = {
-    "renderDistance":1,
+    "renderDistance":2,
     "scale":1.5
   }
 
@@ -260,4 +264,61 @@ class guiV1{
     rect(x+w/32,y+h/16,(w/16*15)/maxi*cur,h/8*7);
   }
 
+  render_chat(){
+    fill(0,200);
+    rect(0,height-height/2,width/3,height/2);
+    
+    textSize(16);
+    for(let i=0;i<=5;i++){
+      fill(25);
+      rect(5,height-55*5+55*i,width/3-10,50);
+      fill(255);
+      if(messages[messages.length-i]){
+        text(messages[messages.length-i],10,height-55*6+55*i+5,width/3-10,50);
+      }
+    }
+    fill(10);
+    rect(5,height-25,width-10,20);
+    fill(255);
+    stroke(0,0);
+    text("["+chatIn+"]",20,height-20);
+
+  }
+
+  //add text input object/function so i don't have to work on it every time
+
+  connect_info = {
+    "username":"Player"+Math.round(Math.random()*1000),
+    "room":"Room1"
+  }
+  render_connect(){
+    fill(0);
+    rect(0,0,width,height/8);
+    textSize(15);
+    fill(255);
+    if(this.box(0,25,15,15)){
+      fill(150);
+    }
+    rect(0,25,15,15);
+    text("Gamertag ~ "+this.connect_info.username,15,40);
+    
+    fill(255);    
+    if(this.box(0,45,15,15)){
+      fill(150);
+    }
+    rect(0,45,15,15);
+    text("Server ~ "+this.connect_info.room,15,60);
+    
+    fill(255);
+    if(this.box(0,75,60,15)){
+      fill(100);
+      if(inputs.clickL){
+        socket.emit("joingame", this.connect_info.room, this.connect_info.username);
+        name=this.connect_info.username;
+        resetData();
+      }
+    }
+    rect(0,75,60,15);
+
+  }
 }

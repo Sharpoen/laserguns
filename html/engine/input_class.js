@@ -6,6 +6,9 @@ class inV1{
 
   setScale(game_scale){
     this.#game_scale = game_scale;
+    if(this.#game_scale%2==0){
+      this.#game_scale+=1;
+    }
   }
   getScale(){
     return this.#game_scale;
@@ -101,8 +104,7 @@ class inV1{
   use_item(world){
     stroke(0,0);
     if(dist(mouseX,mouseY,width/2,height/2)<5*this.#game_scale){
-      fill(0,100,0,75);
-      rect(round((mouseX-width/2)/this.#game_scale+x)*this.#game_scale+width/2-x*this.#game_scale-(this.#game_scale*1.3)/2,round((mouseY-height/2)/this.#game_scale+y)*this.#game_scale+height/2-y*this.#game_scale-(this.#game_scale*1.3)/2,this.#game_scale*1.3,this.#game_scale*1.3);
+      
       image(images["cursor"],round((mouseX-width/2)/this.#game_scale+x)*this.#game_scale+width/2-x*this.#game_scale-(this.#game_scale*1.3)/2,round((mouseY-height/2)/this.#game_scale+y)*this.#game_scale+height/2-y*this.#game_scale-(this.#game_scale*1.3)/2,this.#game_scale*1.3,this.#game_scale*1.3);
       
       let mouseat=round((mouseX-width/2)/this.#game_scale+x)+":"+round((mouseY-height/2)/this.#game_scale+y);

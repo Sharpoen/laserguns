@@ -1,5 +1,5 @@
 class outV1{
-  #game_scale = 30;
+  #game_scale = 31;
   #chunksImages={};
   #openChunks={};
   playerAnimFrame=0;
@@ -12,6 +12,9 @@ class outV1{
 
   setScale(game_scale){
     this.#game_scale = game_scale;
+    if(this.#game_scale%2==0){
+      this.#game_scale+=1;
+    }
   }
   getScale(){
     return this.#game_scale;
@@ -51,54 +54,66 @@ class outV1{
       line(0,i*16*this.#game_scale+cAdjustHeight-adjustCY+this.#game_scale/2,width,i*16*this.#game_scale+cAdjustHeight-adjustCY+this.#game_scale/2);
     }
   }
-
-  render_player(walking){
-    var moving = 0;
-    if(walking){
-      moving=this.#goingUoD;
+  
+  rp(img,st,wk){
+    if(images[img]){
+        image(images[img],width/2-(this.#game_scale*1.5)/2,height/2-(this.#game_scale*1.5)/1.5, (this.#game_scale*1.5), (this.#game_scale*1.5),wk,st,16,16);
     }
-
-    if(moving==1){
-      if(this.playerAnimFrame==0){
-        image(images["player-full"],width/2-(this.#game_scale*1.5)/2,height/2-(this.#game_scale*1.5)/1.5, (this.#game_scale*1.5), (this.#game_scale*1.5),0,32,16,16);
-      }else{
-        image(images["player-full"],width/2-(this.#game_scale*1.5)/2,height/2-(this.#game_scale*1.5)/1.5, (this.#game_scale*1.5), (this.#game_scale*1.5),16,32,16,16);
-      }
-    }else if(moving == 2){
-      if(this.playerAnimFrame==0){
-        image(images["player-full"],width/2-(this.#game_scale*1.5)/2,height/2-(this.#game_scale*1.5)/1.5, (this.#game_scale*1.5), (this.#game_scale*1.5),16,0,16,16);
-      }else{
-        image(images["player-full"],width/2-(this.#game_scale*1.5)/2,height/2-(this.#game_scale*1.5)/1.5, (this.#game_scale*1.5), (this.#game_scale*1.5),0,16,16,16);
-      }
-    }else{
-      image(images["player-full"],width/2-(this.#game_scale*1.5)/2,height/2-(this.#game_scale*1.5)/1.5, (this.#game_scale*1.5), (this.#game_scale*1.5),0,0,16,16);
+  }
+  rpt(img,st,wk){
+    if(images[img]){
+        image(images[img],width/2-(this.#game_scale*1.5)/2,height/2-(this.#game_scale*1.5)/1.5, (this.#game_scale*1.5), (this.#game_scale*1.5)/2,wk,st,16,8);
     }
   }
 
-  render_players(){
+  mrp(){
     let plsU=pls;
+    textSize(20);
     for(let i=0;i<plsU.length;i++){
       if(plsU[i].name!=name){
-        image(images["player-full"],plsU[i].x*this.#game_scale-x*this.#game_scale+width/2-this.#game_scale*1.5/2,plsU[i].y*this.#game_scale-y*this.#game_scale+height/2-this.#game_scale, (this.#game_scale*1.5), (this.#game_scale*1.5),0,0,16,16);
-      }
-    }
-  }
-  old_render_players(){
-    let plsU=pls;
-    fill(255,0,0);
-    for(let i=0;i<plsU.length;i++){
-      if(plsU[i].name!=name){
-        
-        fill(255,0,0);
-        rect(plsU[i].x*this.#game_scale+width/2-x*this.#game_scale-this.#game_scale/2,plsU[i].y*this.#game_scale+height/2-y*this.#game_scale-this.#game_scale/2,this.#game_scale,this.#game_scale);
-
+        let img=plsU[i].img;
+        if(!(images[img])){
+          img="player-new-male";
+        }
 
         fill(0);
-        text(plsU[i].name,plsU[i].x*this.#game_scale+width/2-x*this.#game_scale,plsU[i].y*this.#game_scale+height/2-y*this.#game_scale-10);
+        text(plsU[i].name,plsU[i].x*this.#game_scale+width/2-x*this.#game_scale,plsU[i].y*this.#game_scale+height/2-y*this.#game_scale-this.#game_scale*1.5);
 
+        image(images[img],plsU[i].x*this.#game_scale-x*this.#game_scale+width/2-this.#game_scale*1.5/2,plsU[i].y*this.#game_scale-y*this.#game_scale+height/2-this.#game_scale, (this.#game_scale*1.5), (this.#game_scale*1.5),plsU[i].wk,plsU[i].st,16,16);
       }
     }
   }
+  mrpt(){
+    let plsU=pls;
+    textSize(20);
+    for(let i=0;i<plsU.length;i++){
+      if(plsU[i].name!=name){
+        let img=plsU[i].img;
+        if(!(images[img])){
+          img="player-new-male";
+        }
+
+        fill(0);
+        text(plsU[i].name,plsU[i].x*this.#game_scale+width/2-x*this.#game_scale,plsU[i].y*this.#game_scale+height/2-y*this.#game_scale-this.#game_scale*1.5);
+
+        image(images[img],plsU[i].x*this.#game_scale-x*this.#game_scale+width/2-this.#game_scale*1.5/2,plsU[i].y*this.#game_scale-y*this.#game_scale+height/2-this.#game_scale, (this.#game_scale*1.5), (this.#game_scale*1.5)/2,plsU[i].wk,plsU[i].st,16,8);
+      }
+    }
+  }
+  track_players(){
+    let plsU=pls;
+    stroke(255,0,0,255);
+    strokeWeight(5);
+    for(let i=0;i<plsU.length;i++){
+      if(plsU[i].name!=name){
+        line(width/2,height/2-this.#game_scale,plsU[i].x*this.#game_scale+width/2-x*this.#game_scale,plsU[i].y*this.#game_scale+height/2-y*this.#game_scale-this.#game_scale*1.5);
+        fill(0);
+      }
+    }
+    strokeWeight(1);
+    stroke(0,0);
+  }
+
   square_on(x_,y_){
     rect(x_*this.#game_scale-x*this.#game_scale+width/2-this.#game_scale/2,y_*this.#game_scale-y*this.#game_scale+height/2-this.#game_scale/2,this.#game_scale,this.#game_scale);
   }
@@ -111,12 +126,13 @@ class outV1{
       }
       if(!chunk_data[i].block.invisible&&qbt=="blocks"){
         if(images[chunk_data[i].block.image]){
-          image(images[chunk_data[i].block.image],-x*this.#game_scale+width/2-this.#game_scale/2+atx*this.#game_scale+floor(i%16)*this.#game_scale,-y*this.#game_scale+height/2-this.#game_scale/2+aty*this.#game_scale+floor(i/16)*this.#game_scale-this.#game_scale/4,this.#game_scale,this.#game_scale*1.25);
+          image(images[chunk_data[i].block.image],-x*this.#game_scale+width/2-this.#game_scale/2+atx*this.#game_scale+floor(i%16)*this.#game_scale,-y*this.#game_scale+height/2-this.#game_scale/2+aty*this.#game_scale+floor(i/16)*this.#game_scale-this.#game_scale/16*4,this.#game_scale,this.#game_scale/16*20);
         }
       }
     }
   }
-  render_chunks(chunk_data){
+  render_chunks(chunk_data,qbt){
+    
     var vertOrder=[];
     for(var n in chunk_data){
       if(vertOrder[n.split(":")[1]]==undefined){
@@ -146,21 +162,25 @@ class outV1{
     }
 
     vert_order=revd_rev_vert_order;
-    for(let i in vert_order){
-      var n=vert_order[i];
-      var atx=n.split(":")[0]*16;
-      var aty=n.split(":")[1]*16;
+    if(qbt=="both"||qbt=="tiles"){
+      for(let i in vert_order){
+        var n=vert_order[i];
+        var atx=n.split(":")[0]*16;
+        var aty=n.split(":")[1]*16;
 
-      // this.render_chunk(chunk_data[n],atx,aty);
-      this.render_chunk(chunk_data[n],atx,aty,"tiles");
+        // this.render_chunk(chunk_data[n],atx,aty);
+        this.render_chunk(chunk_data[n],atx,aty,"tiles");
+      }
     }
-    for(let i in vert_order){
-      var n=vert_order[i];
-      var atx=n.split(":")[0]*16;
-      var aty=n.split(":")[1]*16;
+    if(qbt=="both"||qbt=="blocks"){
+      for(let i in vert_order){
+        var n=vert_order[i];
+        var atx=n.split(":")[0]*16;
+        var aty=n.split(":")[1]*16;
 
-      // this.render_chunk(chunk_data[n],atx,aty);
-      this.render_chunk(chunk_data[n],atx,aty,"blocks");
+        // this.render_chunk(chunk_data[n],atx,aty);
+        this.render_chunk(chunk_data[n],atx,aty,"blocks");
+      }
     }
   }
   

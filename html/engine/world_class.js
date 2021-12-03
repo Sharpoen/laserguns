@@ -22,7 +22,7 @@ class worldV1{
       tile:{
         solid:true,
         tileType:"grass",
-        image:"tiles-grass-"+randomNumber(0,3).toString(),
+        image:"tiles-grass-"+randomNumber(0,4).toString(),
       }
     };
 

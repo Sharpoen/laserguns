@@ -1,20 +1,15 @@
 var socket; 
-var usernameInput
-var chatIDInput;
-var chatInput;
-var messageIn;
+// var usernameInput
+// var chatIDInput;
+var chatIn="";
 var chatRoom="none";
-var dingSound;
-var messages = [];
 var delay = true;
 var room_temp;
 
 function onload(){
   socket = io();
-  usernameInput = document.getElementById("NameInput");
-  chatIDInput = document.getElementById("IDInput");
-  chatIn = document.getElementById("chatIn");
-  messageInput = document.getElementById("ComposedMessage");
+  // usernameInput = document.getElementById("NameInput");
+  // chatIDInput = document.getElementById("IDInput");
 
   socket.on("join", function(data){
     chatRoom = data.room;
@@ -52,10 +47,12 @@ function onload(){
     });
 
   socket.on("block",function(data){
-    console.log("aaaa")
-    gameworld.placeblock(data.newblock.block,data.blockat);
-    gameworld.placetile(data.newblock.tile,data.blockat);
-    console.log(data);
+    if(!(data.newblock.block.ignore)){
+      gameworld.placeblock(data.newblock.block,data.blockat);
+    }
+    if(!(data.newblock.tile.ignore)){
+      gameworld.placetile(data.newblock.tile,data.blockat);
+    }
   });
 
   socket.on("interact",function(data){
@@ -67,9 +64,7 @@ function onload(){
   });
 
   socket.on("playerChat",function(data){
-    chat+="[ "+data.name+" ] ~ "+data.chat+"<br>";
-    document.getElementById("chatDiv").innerHTML=chat;
-    document.getElementById("endOfChat").scrollIntoView();
+    messages.push("[ "+data.name+" ] ~ "+data.chat);
   });
 
 
@@ -82,17 +77,15 @@ function Connect(){
   resetData();
 }
 function SubmitChat(){
-  socket.emit("playerChat", {chat:chatIn.value,name:name});
-  chatIn.value="";
+  socket.emit("playerChat", {chat:chatIn,name:name});
+  chatIn="";
 }
 
 function Send(){
-  socket.emit("send", {x:x,y:y,name:name});
+  socket.emit("send", {x:x,y:y,name:name,wk:wk,st:st,img:"player-new-male"});
 }
 
 function tellServerBlock(new_block,blockat){
-  // console.log("sending block data:");
-  // console.log(new_block)
   socket.emit("block", {
     newblock:{
       block:new_block.block,

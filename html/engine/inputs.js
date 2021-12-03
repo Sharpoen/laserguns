@@ -31,7 +31,9 @@ window.addEventListener("mousedown", function(){
 });
 
 window.onkeydown = function(){
+  if(!gui.freeze_keys){
     inputs[inputLinks[event.keyCode]]=true;
+  }
 }
 window.onkeyup = function(){
     inputs[inputLinks[event.keyCode]]=false;
