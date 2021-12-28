@@ -1,324 +1,277 @@
-class guiV1{
 
-  freeze_keys=false;
-
-  hotbarItems={
-    selected:0,
-    invheld:"",
-    0:{
-        item:"hand",
-        image:"items-hand"
-      },
-    1:{
-        item:"sand",
-        image:"nblocks-sand"
-      },
-    2:{
-        item:"shovel",
-        image:"items-protoshovel"
-      },
-    3:{
-        item:"dirt",
-        image:"nblocks-dirt"
-      },
-    5:{
-        item:"sword",
-        image:"items-protosword"
-      },
-  };
-
-  pagesOpen={
-    "settings":false,
-    "inventory":false,
-    "debug":false,
-    "chat":false,
-    "connect":true,
-  }
+class guiV2{
 
   settings = {
     "renderDistance":2,
     "scale":1.5
   }
 
+  iwin_open=false;
+  iwindows = ["Inventory","Session","Settings","Character-Select","Texture-Select","Debug"];
+  iniw = 0;
+
+  freeze_keys=false;
+  inputoverride=false;
   constructor(){
 
   }
-  
-  hotswap(i){
-    this.hotbarItems.selected=i;
-    if(this.hotbarItems[i]){
-      holdingItem=this.hotbarItems[i].item;
-    }else{
-      holdingItem="do_nothing"
-    }
-  }
 
-  render_master(){
-    fill(0,175);
-    rect(width/16,height/16,width-width/8,height-height/8);
-  }
-  
-  box(x,y,w,h){
-    if(
-    mouseX>x&&mouseX<x+w  &&
-    mouseY>y&&mouseY<y+h){
+  b(x,y,w,h){
+    if(mouseX>x&&mouseY>y&&mouseX<x+w&&mouseY<y+h){
       return true;
     }else{
       return false;
     }
   }
-
-  render_inventory(){
-    fill(255,255);
-    textSize(20);
-    text("[inventory] | settings | debug",width/16+20,height/16+20);
-
-    fill(255);
-    if(this.box(width/16+10,height/16+25,25,25)){
-      fill(200);
-      if(inputs["clickL"]){
-        this.pagesOpen.debug=true;
-        this.pagesOpen.inventory=false;
-      }
-    }
-    rect(width/16+10,height/16+25,25,25);
-    fill(255);
-    if(this.box(width/16+45,height/16+25,25,25)){
-      fill(200);
-      if(inputs["clickL"]){
-        this.pagesOpen.settings=true;
-        this.pagesOpen.inventory=false;
-      }
-    }
-    rect(width/16+45,height/16+25,25,25);
-
-    let i=0;
-    for(let n in inventory){
-      fill(100,255);
-      var placeAtX=Math.floor(i%(((width-width/8)-(width-width/8)%50)/50));
-      var placeAtY=Math.floor(i/(((width-width/8)-(width-width/8)%50)/50));
-
-      if(this.box(placeAtX*50+width/16+15,height/16+50+placeAtY*70,45,45)){
-        if(inputs["clickL"]){
-          this.hotbarItems.invheld=n;
-        }
-        fill(150,255);
-      }
-      rect(width/16+15+placeAtX*50,height/16+50+placeAtY*70,45,45);
-
-      if(inventory[n].image!=undefined){
-        image(images[inventory[n].image],placeAtX*50+width/16+15+7.5,height/16+50+placeAtY*70+7.5,30,30)
-      }
-
-      i+=1;
-
-    }
-    
-    let hotBarButtonScale=(height/12);
-
-    for(let i=0;i<9;i++){
-      fill(0);
-      if(this.box(width/16+hotBarButtonScale/10+i*hotBarButtonScale,height-(height/8),hotBarButtonScale/10*9,hotBarButtonScale/10*9)){
-        fill(255);
-        if(inputs.clickL){
-          if(inventory[this.hotbarItems.invheld]){
-            this.hotbarItems[i]={
-              item: this.hotbarItems.invheld,
-              image: inventory[this.hotbarItems.invheld].image || "blocks-air",
-            }
-            this.hotbarItems.invheld="do_nothing";
-          }
-        }
-      }
-      rect(width/16+hotBarButtonScale/10+i*hotBarButtonScale,height-(height/8),hotBarButtonScale/10*9,hotBarButtonScale/10*9);
-      if(this.hotbarItems[i]){
-        if(this.hotbarItems[i].image){
-          if(this.box(width/16+hotBarButtonScale/10+i*hotBarButtonScale,height-(height/8),hotBarButtonScale/10*9,hotBarButtonScale/10*9)){
-            image(images[this.hotbarItems[i].image],width/16+hotBarButtonScale/10+i*hotBarButtonScale,height-(height/8)-hotBarButtonScale/10,hotBarButtonScale/10*9,hotBarButtonScale/10*9)
-          }else{
-            image(images[this.hotbarItems[i].image],width/16+hotBarButtonScale/10+i*hotBarButtonScale,height-(height/8),hotBarButtonScale/10*9,hotBarButtonScale/10*9)
-          }
-        }
-      }
-    }
-
-    if(inventory[this.hotbarItems.invheld]){
-      image(images[inventory[this.hotbarItems.invheld].image],mouseX+hotBarButtonScale/10,mouseY+hotBarButtonScale/10,hotBarButtonScale/10*9,hotBarButtonScale/10*9)
-    }
-
-  }
-
-  render_settings(){
-    fill(255,255);
-    textSize(20);
-    text("inventory | [settings] | debug",width/16+20,height/16+20);
-    fill(255);
-    if(this.box(width/16+10,height/16+25,25,25)){
-      fill(200);
-      if(inputs["clickL"]){
-        this.pagesOpen.inventory=true;
-        this.pagesOpen.settings=false;
-      }
-    }
-    rect(width/16+10,height/16+25,25,25);
-    fill(255);
-    if(this.box(width/16+45,height/16+25,25,25)){
-      fill(200);
-      if(inputs["clickL"]){
-        this.pagesOpen.debug=true;
-        this.pagesOpen.settings=false;
-      }
-    }
-    rect(width/16+45,height/16+25,25,25);
-  }
-  render_debug(){
-    fill(255,255);
-    textSize(20);
-    text("inventory | settings | [debug]",width/16+20,height/16+20);
-    fill(255);
-    if(this.box(width/16+10,height/16+25,25,25)){
-      fill(200);
-      if(inputs["clickL"]){
-        this.pagesOpen.settings=true;
-        this.pagesOpen.debug=false;
-      }
-    }
-    rect(width/16+10,height/16+25,25,25);
-    fill(255);
-    if(this.box(width/16+45,height/16+25,25,25)){
-      fill(200);
-      if(inputs["clickL"]){
-        this.pagesOpen.inventory=true;
-        this.pagesOpen.debug=false;
-      }
-    }
-    rect(width/16+45,height/16+25,25,25);
-
-    let i=0;
-    for(let n in debug){
-      i++;
-      if(debug[n]){
-        fill(0,255,0);
-      }else{
-        fill(255,0,0);
-      }
-      rect(width/16+10,height/16+25+i*30,50,25);
-      textSize(20);
-      if(this.box(width/16+10,height/16+25+i*30,50,25)){
-        fill(255);
-        rect(width/16+10,height/16+37+i*30,50,12);
-        if(inputs["clickL"]){
-          debug[n]=!debug[n];
-        }
-      }
-      fill(255);
-      text(n,width/16+75,height/16+45+i*30);
-    }
-    i++;
-    text("info:\nx"+round(x)+"("+x+")"+"\ny"+round(y)+"("+y+")",width/16+10,height/16+45+i*30);
-
-
-
-  }
-
-  render_hotbar(){
-    fill(0,175);
-    rect(width/16,height-height/8,width/16*14,height/8);
-
-    let hotBarButtonScale=(height/8)*.9;
-
-    for(let i=0;i<9;i++){
-      
-      fill(100,255);
-
-      if(this.box(width/16+hotBarButtonScale/10+i*hotBarButtonScale,height-height/8+hotBarButtonScale/10,hotBarButtonScale/10*9,hotBarButtonScale/10*9)){
-        fill(150,255);
-        console.log(0);
-        if(inputs["clickL"]){
-          this.hotbarItems.selected=i;
-          if(this.hotbarItems[i]){
-            holdingItem=this.hotbarItems[i].item;
-          }else{
-            holdingItem="do_nothing";
-          }
-        }
-
-      }
-
-      if(i==this.hotbarItems.selected){
-        fill(150,200,200);
-      }
-
-      rect(width/16+hotBarButtonScale/10+i*hotBarButtonScale,height-height/8+hotBarButtonScale/10,hotBarButtonScale/10*9,hotBarButtonScale/10*9);
-      if(this.hotbarItems[i]!=undefined){
-        image(images[this.hotbarItems[i].image],width/16+hotBarButtonScale/10+i*hotBarButtonScale+hotBarButtonScale/15*9/4,height-height/8+hotBarButtonScale/10+hotBarButtonScale/15*9/4,hotBarButtonScale/15*9,hotBarButtonScale/15*9);
-      }
-    }
-
-  }
-
-  render_bar(color,cur,maxi,x,y,w,h){
-    fill(0);
-    rect(x,y,w,h);
-    fill(color);
-    rect(x+w/32,y+h/16,(w/16*15)/maxi*cur,h/8*7);
-  }
-
-  render_chat(){
-    fill(0,200);
-    rect(0,height-height/2,width/3,height/2);
-    
-    textSize(16);
-    for(let i=0;i<=5;i++){
-      fill(25);
-      rect(5,height-55*5+55*i,width/3-10,50);
-      fill(255);
-      if(messages[messages.length-i]){
-        text(messages[messages.length-i],10,height-55*6+55*i+5,width/3-10,50);
-      }
-    }
-    fill(10);
-    rect(5,height-25,width-10,20);
-    fill(255);
-    stroke(0,0);
-    text("["+chatIn+"]",20,height-20);
-
-  }
-
-  //add text input object/function so i don't have to work on it every time
-
-  connect_info = {
-    "username":"Player"+Math.round(Math.random()*1000),
-    "room":"Room1"
-  }
-  render_connect(){
-    fill(0);
-    rect(0,0,width,height/8);
+  coming_soon_iwin(){
     textSize(15);
-    fill(255);
-    if(this.box(0,25,15,15)){
-      fill(150);
+    fill(0,255);
+    text("Sorry, this page is either under developement or bugged.\nIf you think this page is broken please contact the dev team at: (put dev team contact links here)",15,50);
+  }
+  inventory_iwin(){
+    let sc=(width+height)/2;
+    fill(200,255);
+    rect(width/2-(sc/15*10)/2,+height-sc/15*9-45,sc/15*9,sc/15*8);
+    fill(255,255);
+    rect(width/2-(sc/15*10)/2,sc/15*8+height-sc/15*9-45,sc/15*9,sc/15);
+    fill(0);
+    textSize(25);
+    text("Hotbar",width/2-(sc/15*10)/2,sc/15*9+height-sc/15*9-55);
+    text("Bag",width/2-(sc/15*10)/2,sc/15*8+height-sc/15*9-55);
+    for(let i=0;i<72;i++){
+      fill(0,200);
+      if(this.b(i%8*sc/15+width/2-(sc/15*8)/2,floor(i/8)*sc/15+height-sc/15*9-45,sc/16,sc/16,25)){
+        fill(25,200);
+        rect(i%8*sc/15+width/2-(sc/15*8)/2,floor(i/8)*sc/15+height-sc/15*9-45,sc/16,sc/16,25);
+        if(inventory[i]&&images[inventory[i].image]){
+          image(images[inventory[i].image],i%8*sc/15+width/2-(sc/15*8)/2,+height-sc/15*9-45+floor(i/8)*sc/15-sc/64,sc/16,sc/16);
+        }
+        if(inputs.clickL){
+          inventory[73]=inventory[i];
+          inventory[i]=inventory[74];
+          inventory[74]=inventory[73];
+        }
+      }else{
+        rect(i%8*sc/15+width/2-(sc/15*8)/2,floor(i/8)*sc/15+height-sc/15*9-45,sc/16,sc/16,25);
+        if(inventory[i]&&images[inventory[i].image]){
+          image(images[inventory[i].image],i%8*sc/15+width/2-(sc/15*8)/2,+height-sc/15*9-45+floor(i/8)*sc/15,sc/16,sc/16);
+        }
+      }
+      if(inventory[i]&&inventory[i].amount>1){
+        textSize(sc/64);
+        fill(0,255);
+        rect(i%8*sc/15+width/2-(sc/15*8)/2,+height-sc/15*9-45+floor(i/8)*sc/15,textWidth(inventory[i].amount),sc/64);
+        fill(255);
+        text(inventory[i].amount,i%8*sc/15+width/2-(sc/15*8)/2,+height-sc/15*9-45+floor(i/8)*sc/15+sc/64)
+      }
+      if(inventory[i]&&inventory[i].amount<=0){
+        inventory[i]=undefined;
+      }
     }
-    rect(0,25,15,15);
-    text("Gamertag ~ "+this.connect_info.username,15,40);
-    
-    fill(255);    
-    if(this.box(0,45,15,15)){
-      fill(150);
+    if(inventory[73]&&images[inventory[73].image]){
+      image(images[inventory[73].image],mouseX+15,mouseY+15,sc/16,sc/16);
     }
-    rect(0,45,15,15);
-    text("Server ~ "+this.connect_info.room,15,60);
-    
-    fill(255);
-    if(this.box(0,75,60,15)){
-      fill(100);
+    if(inventory[73]&&inventory[73].amount<=0){
+      inventory[73]=undefined;
+    }
+  }
+
+  
+  ss={
+    gameroom:"Room1",
+    name:"Player"+Math.round(Math.random()*1000),
+    eg:false,
+    en:false,
+  }
+
+  session_iwin(){
+    textSize(40);
+    fill(255,255);
+    if(this.b(25,40,textWidth("Gameroom {"+this.ss.gameroom+"}"),40)){
+      fill(0,255,255,255);
       if(inputs.clickL){
-        socket.emit("joingame", this.connect_info.room, this.connect_info.username);
-        name=this.connect_info.username;
+        this.ss.eg=true;
+        this.ss.en=false;
+      }
+    }
+    rect(25,40,textWidth("Gameroom {"+this.ss.gameroom+"}"),40);
+    fill(220,255);
+    if(this.b(25,90,textWidth("Gamertag {"+this.ss.name+"}"),40)){
+      fill(0,220,220,255);
+      if(inputs.clickL){
+        this.ss.eg=false;
+        this.ss.en=true;
+      }
+    }
+    rect(25,90,textWidth("Gamertag {"+this.ss.name+"}"),40);
+    fill(255,255);
+    if(this.b(25,140,textWidth("[Join Game]"),45)){
+      fill(0,220,220,255);
+      if(inputs.clickL){
+        this.ss.eg=false;
+        this.ss.en=false;
+        socket.emit("joingame", this.ss.gameroom, this.ss.name);
+        name=this.ss.name;
         resetData();
       }
     }
-    rect(0,75,60,15);
+    rect(25,140,textWidth("[Join Game]"),45);
+    fill(220,255);
+    if(this.b(25,190,textWidth("[unfocus]"),45)){
+      fill(0,220,220,255);
+      if(inputs.clickL){
+        this.ss.eg=false;
+        this.ss.en=false;
+      }
+    }
+    rect(25,190,textWidth("[unfocus]"),45);
+    
+    fill(0);
+    if(this.ss.eg){
+      text("Gameroom *{"+this.ss.gameroom+"}\nGamertag {"+this.ss.name+"}\n[Join Game]\n[unfocus]",25,75);
+    }else if(this.ss.en){
+      text("Gameroom {"+this.ss.gameroom+"}\nGamertag *{"+this.ss.name+"}\n[Join Game]\n[unfocus]",25,75);
+    }else{
+      text("Gameroom {"+this.ss.gameroom+"}\nGamertag {"+this.ss.name+"}\n[Join Game]\n[unfocus]",25,75);
+    }
+  }
+  settings_iwin(){
 
   }
+  grabfunction(name){
+    if(name=="Inventory"){
+      this.inventory_iwin();
+    }else if(name=="Session"){
+      this.session_iwin();
+    }else if(name=="Settings"){
+      this.settings_iwin();
+    }else{
+      this.coming_soon_iwin();
+    }
+    
+  }
+  iwindow(){
+    //background
+    fill(255,150);
+    rect(0,0,width,height);
+    //window
+    this.grabfunction(this.iwindows[this.iniw]);
+    //overlay/default
+    let upi=-1;
+    for(let i=0;i<this.iwindows.length;i++){
+      if(i%2==0){
+        fill(200);
+      }else{
+        fill(255);
+      }
+      if(this.b(i*width/this.iwindows.length,0,width/this.iwindows.length,35,15)){
+        upi=i;
+      }
+      rect(i*width/this.iwindows.length,0,width/this.iwindows.length,35,15);
+      stroke(0,0);
+      fill(0,255);
+      textSize(25);
+      if(this.iniw==i){
+        text("["+this.iwindows[i]+"]",i*width/this.iwindows.length+10,25)
+      }else{
+        text(this.iwindows[i],i*width/this.iwindows.length+10,25)
+      }
+    }
+      if(upi!=-1){
+        fill(0,255,255);
+        if(inputs.clickL){
+          this.iniw=upi;
+        }
+        if(textWidth("["+this.iwindows[upi]+"]")+10>width/this.iwindows.length){
+          rect(upi*width/this.iwindows.length,0,textWidth("["+this.iwindows[upi]+"]")+10,35,15);
+        }else{
+          rect(upi*width/this.iwindows.length,0,width/this.iwindows.length,35,15);
+        }
+        stroke(0,0);
+        fill(0,255);
+        textSize(25);
+        if(this.iniw==upi){
+          text("["+this.iwindows[upi]+"]",upi*width/this.iwindows.length+10,25);
+        }else{
+          text(this.iwindows[upi],upi*width/this.iwindows.length+10,25);
+        }
+      }
+
+  }
+  hotbar(){
+    let sc=(width+height)/2;
+    for(let i=0;i<8;i++){
+      fill(255,200);
+      if(i%2==0){
+        fill(200,200);
+      }
+      if(this.b(i*sc/15+width/2-(sc/15*8)/2,height-sc/15,sc/16,sc/16)){
+        fill(0,200,200,200);
+        if(inputs.clickL){
+          holdingItem=i;
+        }
+      }
+      if(holdingItem!=i){
+        rect(i*sc/15+width/2-(sc/15*8)/2,height-sc/15,sc/16,sc/16,5);
+      }else{
+        rect(i*sc/15+width/2-(sc/15*8)/2-(sc/15-sc/16),height-sc/15-(sc/15-sc/16),sc/15+(sc/15-sc/16),sc/15+(sc/15-sc/16),5)
+      }
+      if(inventory[i+64]&&images[inventory[i+64].image]){
+        image(images[inventory[i+64].image],i*sc/15+width/2-(sc/15*8)/2,height-sc/15,sc/16,sc/16);
+      }
+      if(inventory[i+64]&&inventory[i+64].amount>1){
+        textSize(sc/64);
+        fill(0,255);
+        rect(i*sc/15+width/2-(sc/15*8)/2,height-sc/15,textWidth(inventory[i+64].amount),sc/64);
+        fill(255);
+        text(inventory[i+64].amount,i*sc/15+width/2-(sc/15*8)/2,height-sc/15,sc/64,sc/64);
+      }
+      if(inventory[i+64]&&inventory[i+64].amount<=0){
+        inventory[i+64]=undefined;
+      }
+    }
+  }
+  tasks(){
+    if(this.iwin_open){
+      this.iwindow();
+      this.inputoverride=true;
+    }else{
+      this.hotbar();
+      this.inputoverride=false;
+    }
+  }
+  keypressed(k,ke){
+    // console.log(k+" was pressed.");
+    if(k==69&&!this.ss.en&&!this.ss.eg){
+      this.iwin_open=!this.iwin_open;
+    }
+    if([49,50,51,52,53,54,55,56].includes(k)&&!this.ss.en&&!this.ss.eg){
+      holdingItem=k-49;
+    }
+    if(this.ss.en){
+
+        if(k==8){
+          let z=this.ss.name.split("");
+          z.splice(z.length-1,1);
+          this.ss.name=z.join("");
+        }
+        if(ke.toString().length==1){
+          this.ss.name+=ke.toString();
+        }
+      
+    }
+    if(this.ss.eg){
+
+        if(k==8){
+          let z=this.ss.gameroom.split("");
+          z.splice(z.length-1,1);
+          this.ss.gameroom=z.join("");
+        }
+        if(ke.toString().length==1){
+          this.ss.gameroom+=ke.toString();
+        }
+      
+    }
+  }
+
 }

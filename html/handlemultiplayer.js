@@ -82,7 +82,11 @@ function SubmitChat(){
 }
 
 function Send(){
-  socket.emit("send", {x:x,y:y,name:name,wk:wk,st:st,img:"player-new-male"});
+  socket.emit("send", {
+    x:x,y:y,
+    name:name,
+    wk:wk,st:st,img:skin
+  });
 }
 
 function tellServerBlock(new_block,blockat){

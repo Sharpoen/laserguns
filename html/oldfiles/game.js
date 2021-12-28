@@ -18,9 +18,11 @@ function updateHealth(add){
 
 
 var gamescreen = new outV1();
+var gs = new outV2();
 var gameinput = new inV1(gamescreen.getScale());
 var gameworld = new worldV1();
 var gui = new guiV1();
+var g2 = new guiV2();
 
 gameworld.setChunk("0:0",gameworld.createChunk());
 
@@ -101,7 +103,10 @@ setInterval(function(){
   }
 },500);
 
+function aaaa(){};
+
 function draw(){
+
 
   background(50);
 
@@ -109,7 +114,7 @@ function draw(){
 
   if(!debug.hitboxes){
     gamescreen.mrp();
-    gamescreen.rp("player-new-male",st,wk);
+    gamescreen.rp(skin,st,wk);
   }
 
   gamescreen.render_chunks(gameworld.getChunks(chunksToRender),"blocks");
@@ -131,7 +136,6 @@ function draw(){
     }
   }
 
-  // gamescreen.render_players();
 
   if(debug.testDebugItem2){
     gamescreen.track_players();
@@ -140,7 +144,7 @@ function draw(){
   if(!debug.hitboxes){
     // gamescreen.render_player_top(inputs["up"]||inputs["down"]||inputs["left"]||inputs["right"]);
     gamescreen.mrpt();
-    gamescreen.rpt("player-new-male",st,wk);
+    gamescreen.rpt(skin,st,wk);
   }
 
   if(debug.grid){
@@ -178,7 +182,7 @@ function draw(){
 
   if(gui.pagesOpen.chat){
     gui.render_chat();
-  }else if(gui.pagesOpen.inventory||gui.pagesOpen.settings||gui.pagesOpen.debug){
+  }else if(gui.pagesOpen.inventory||gui.pagesOpen.settings||gui.pagesOpen.debug||gui.pagesOpen.skins){
     gui.render_master();
     if(gui.pagesOpen["inventory"]){
       gui.render_inventory();
@@ -186,6 +190,8 @@ function draw(){
       gui.render_settings();
     }else if(gui.pagesOpen["debug"]){
       gui.render_debug();
+    }else if(gui.pagesOpen["skins"]){
+      gui.render_skins();
     }
 
   }else{
@@ -206,11 +212,16 @@ function draw(){
     }
   }
   rect(0,0,15,15);
+
+  aaaa();
+
 //
   
   inputs["clickL"]=false;
   inputs["clickR"]=false;
   pcc=[cx,cy];
+
+  
 }
 
 setInterval(function(){

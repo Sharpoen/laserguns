@@ -7,7 +7,6 @@ class outV1{
   #goingUoD=1;
 
   constructor(){
-    this.old_mouseOver=[];
   }
 
   setScale(game_scale){
@@ -68,7 +67,7 @@ class outV1{
 
   mrp(){
     let plsU=pls;
-    textSize(20);
+    // textSize(20);
     for(let i=0;i<plsU.length;i++){
       if(plsU[i].name!=name){
         let img=plsU[i].img;
@@ -76,8 +75,8 @@ class outV1{
           img="player-new-male";
         }
 
-        fill(0);
-        text(plsU[i].name,plsU[i].x*this.#game_scale+width/2-x*this.#game_scale,plsU[i].y*this.#game_scale+height/2-y*this.#game_scale-this.#game_scale*1.5);
+        // fill(0);
+        // text(plsU[i].name,plsU[i].x*this.#game_scale+width/2-x*this.#game_scale,plsU[i].y*this.#game_scale+height/2-y*this.#game_scale-this.#game_scale*1.5);
 
         image(images[img],plsU[i].x*this.#game_scale-x*this.#game_scale+width/2-this.#game_scale*1.5/2,plsU[i].y*this.#game_scale-y*this.#game_scale+height/2-this.#game_scale, (this.#game_scale*1.5), (this.#game_scale*1.5),plsU[i].wk,plsU[i].st,16,16);
       }
@@ -94,7 +93,7 @@ class outV1{
         }
 
         fill(0);
-        text(plsU[i].name,plsU[i].x*this.#game_scale+width/2-x*this.#game_scale,plsU[i].y*this.#game_scale+height/2-y*this.#game_scale-this.#game_scale*1.5);
+        text(plsU[i].name,plsU[i].x*this.#game_scale+width/2-x*this.#game_scale-textWidth(plsU[i].name)/2,plsU[i].y*this.#game_scale+height/2-y*this.#game_scale-this.#game_scale*1.5);
 
         image(images[img],plsU[i].x*this.#game_scale-x*this.#game_scale+width/2-this.#game_scale*1.5/2,plsU[i].y*this.#game_scale-y*this.#game_scale+height/2-this.#game_scale, (this.#game_scale*1.5), (this.#game_scale*1.5)/2,plsU[i].wk,plsU[i].st,16,8);
       }
@@ -186,6 +185,39 @@ class outV1{
   
 }
 
+
 class outV2{
-  
+  constructor(){}
+  tiles;
+  blocks;
+  atlas;
+  p={
+    stone_block:{x:0,y:0,w:16,h:20},
+    grass_block:{x:16,y:0,w:16,h:20},
+    dirt_block:{x:32,y:0,w:16,h:20},
+    sand_block:{x:48,y:0,w:16,h:20},
+    wood_block:{x:64,y:0,w:16,h:20},
+    air_block:{x:80,y:0,w:16,h:20},
+    debug_block:{x:96,y:0,w:16,h:20},
+    a_block:{x:112,y:0,w:16,h:20},
+  }
+
+  loadTextures(atlas, sprites){
+    this.atlas=createImage(128,128);
+    this.atlas.loadPixels();
+    for(let a=0;a<128;a++){
+      for(let b=0;b<128;b++){
+        this.atlas.pixels[a*4+b*128*4+0]=random(0,255);
+        this.atlas.pixels[a*4+b*128*4+1]=random(0,255);
+        this.atlas.pixels[a*4+b*128*4+2]=random(0,255);
+        this.atlas.pixels[a*4+b*128*4+3]=255;
+      }
+    }
+    this.atlas.updatePixels();
+  }
+
+  renderAtlas(){
+    image(this.atlas,128,128,256,256);
+  }
+
 }

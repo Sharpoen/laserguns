@@ -57,7 +57,12 @@ class worldV1{
 
   placeblock(new_block,placeat){
     this.getChunk(placeat[0]+":"+placeat[1]);
-    this.#chunks[placeat[0]+":"+placeat[1]][placeat[5]].block=new_block;
+    if(this.#chunks[placeat[0]+":"+placeat[1]][placeat[5]].block.blockType=="air"){
+      this.#chunks[placeat[0]+":"+placeat[1]][placeat[5]].block=new_block;
+      return true;
+    }else{
+      return false;
+    }
   }
   placetile(new_tile,placeat){
     this.getChunk(placeat[0]+":"+placeat[1]);

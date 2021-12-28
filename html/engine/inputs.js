@@ -31,10 +31,24 @@ window.addEventListener("mousedown", function(){
 });
 
 window.onkeydown = function(){
-  if(!gui.freeze_keys){
+  if(!g2.inputoverride){
     inputs[inputLinks[event.keyCode]]=true;
   }
 }
 window.onkeyup = function(){
     inputs[inputLinks[event.keyCode]]=false;
+}
+
+function mouseWheel(event) {
+  if(event.delta>0){
+    holdingItem+=1;
+  }else{
+    holdingItem-=1;
+  }
+  if(holdingItem<0){
+    holdingItem=7
+  }
+  if(holdingItem>7){
+    holdingItem=0;
+  }
 }

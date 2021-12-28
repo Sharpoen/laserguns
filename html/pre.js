@@ -9,6 +9,8 @@ var y=0;
 var st=0;
 var wk=0;
 
+var skin="player-male";
+
 var pcc=[cx,cy];
 var cx=0;
 var cy=0;
@@ -39,9 +41,9 @@ var debug={
 p:primary
 s:secondary
 */
-var inventory={
-  "hand":{amount:1,image:"items-hand",p:{},s:{}},
-  "sand":{amount:64,image:"nblocks-sand",p:{
+var inventory=[
+  {amount:1,image:"items-hand",p:{},s:{}},
+  {amount:64,image:"nblocks-sand",p:{
     "placeblock":{
       block:{
         block:{
@@ -59,7 +61,7 @@ var inventory={
       }
     }
   },s:{}},
-  "dirt":{amount:64,image:"nblocks-dirt",p:{
+  {amount:64,image:"nblocks-dirt",p:{
     "placeblock":{
       block:{
         block:{
@@ -77,7 +79,7 @@ var inventory={
       }
     }
   },s:{}},
-  "cobble_stone":{amount:64,image:"nblocks-cobble_stone",p:{
+  {amount:64,image:"nblocks-cobble_stone",p:{
     "placeblock":{
       block:{
         block:{
@@ -95,7 +97,7 @@ var inventory={
       }
     }
   },s:{}},
-  "grass":{amount:64,image:"nblocks-grass",p:{
+  {amount:64,image:"nblocks-grass",p:{
     "placeblock":{
       block:{
         block:{
@@ -113,7 +115,7 @@ var inventory={
       }
     }
   },s:{}},
-  "log":{amount:64,image:"nblocks-log",p:{
+  {amount:64,image:"nblocks-log",p:{
     "placeblock":{
       block:{
         block:{
@@ -131,7 +133,7 @@ var inventory={
       }
     }
   },s:{}},
-  "redblue":{amount:64,image:"nblocks-redblue",p:{
+  {amount:64,image:"nblocks-redblue",p:{
     "placeblock":{
       block:{
         block:{
@@ -149,19 +151,19 @@ var inventory={
       }
     }
   },s:{}},
-  "sword":{amount:1,image:"items-protosword",p:{
+  {amount:1,image:"items-protosword",p:{
     "sword":{
       strength:1
     }
   },s:{}},
-  "shovel":{amount:1,image:"items-protoshovel",p:{
+  {amount:1,image:"items-protoshovel",p:{
     "shovel":{
       strength:1
     }
   },s:{}},
-};
+];
 
-var holdingItem="hand";
+var holdingItem=1;
 
 // var friends={
 
@@ -175,13 +177,6 @@ function resetData(){
   chat="";
   lastJoin="";
   holdingItem="hand";
-  // name="";
-
-  inventory["hand"].amount=1;
-  inventory["sand"].amount=64;
-  inventory["sword"].amount=1;
-  inventory["shovel"].amount=1;
-  // friends={};
     
   health=100;
   
@@ -196,11 +191,9 @@ function resetData(){
 }
 
 
-images={
- chunks:[],
- blocks:[],
- tiles:[]
-}
+images={}
+
+let fonts=[];
 
 function preload(){
   images["tiles-grass-0"]=loadImage("assets/assets-png/tiles/Grass/DarkerGrass.png");
@@ -229,20 +222,25 @@ function preload(){
 
   images["items-protoshovel"]=loadImage("assets/assets-png/items/shovels/shovel1.png");
 
-  images["items-hand"]=loadImage("assets/assets-jpg/hand.jpg");
+  images["items-hand"]=loadImage("assets/assets-png/items/handart1.png");
 
   images["items-wood"]=loadImage("assets/assets-png/items/wooditem.png");
 
-  images["player-lite"]=loadImage("assets/assets-png/man.png");
-  images["player-full"]=loadImage("assets/assets-png/Hoodie.png");
-  images["player-full-male"]=loadImage("assets/assets-png/Man.png");
-  images["player-full-female"]=loadImage("assets/assets-png/Woman.png");
-  images["player-full-hoodie"]=loadImage("assets/assets-png/Hoodie.png");
+  images["old-p-lite"]=loadImage("assets/assets-png/man.png");
+  images["old-p-full"]=loadImage("assets/assets-png/Hoodie.png");
+  images["old-p-male"]=loadImage("assets/assets-png/Man.png");
+  images["old-p-female"]=loadImage("assets/assets-png/Woman.png");
+  images["old-p-hoodie"]=loadImage("assets/assets-png/Hoodie.png");
   
-  images["player-new-male"]=loadImage("assets/Man.png");
+  images["player-male"]=loadImage("assets/Man.png");
+  images["player-man-5"]=loadImage("assets/Man-5.png");
+
+  images["player-zombie"]=loadImage("assets/zombie.png");
 
   images["cursor"]=loadImage("assets/assets-png/uno.png");
 
+  //fonts
+  fonts["Ubuntu"]=loadFont('assets/fonts/Ubuntu.ttf');
 }
 
 /* https://betterprogramming.pub/how-to-obtain-random-numbers-within-a-range-using-javascript-83d3f9b0cd51 */

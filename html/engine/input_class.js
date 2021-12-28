@@ -15,14 +15,6 @@ class inV1{
   }
 
   movement(world){
-      // let pat=Array.from([]); 
-
-      // pat[0]=Math.floor(x/16);
-      // pat[1]=Math.floor(y/16);
-
-      // pat[2]=Math.floor(x)-pat[0]*16;
-      // pat[3]=Math.floor(y)-pat[1]*16;
-      // pat[5]=pat[2]+pat[3]*16;
       let newpos=Array.from([x,y]);
 
       if(inputs["left"]){
@@ -72,8 +64,8 @@ class inV1{
         if(inputs["up"]||inputs["down"]){
           if(inputs.query){
             console.log("1");
+            console.log((tl[2]&&tr[2]&&bl[2]&&br[2]));
           }
-          console.log((tl[2]&&tr[2]&&bl[2]&&br[2]));
           if(tl[2]&&tr[2]&&bl[2]&&br[2]){
             y=newpos[1];
             if(inputs.query){
@@ -119,14 +111,16 @@ class inV1{
 
       if(inputs["clickL"]){
         let action;
-        if(inventory[holdingItem]){
-          action = inventory[holdingItem].p;
+        if(inventory[holdingItem+64]){
+          action = inventory[holdingItem+64].p;
         }else{
           action = {};
         }
         if(action.placeblock){
-          world.placeblock(action.placeblock.block.block,blockat);
-          tellServerBlock(action.placeblock.block,blockat);
+          if(world.placeblock(action.placeblock.block.block,blockat)){
+            tellServerBlock(action.placeblock.block,blockat);
+            inventory[holdingItem+64].amount-=1;
+          }
         }
         if(action.shovel){
           let newChunk=world.getChunk(blockat[0]+":"+blockat[1]);
@@ -168,7 +162,7 @@ class inV1{
 
       }
       if(inputs["clickR"]){
-        let action = inventory[holdingItem].s;
+        let action = inventory[holdingItem+64].s;
       }
 
     }
